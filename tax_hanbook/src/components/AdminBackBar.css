@@ -1,0 +1,74 @@
+/* ── Admin Dashboard FAB ─────────────────────────────────────────────────────
+   Floating action button pinned to the bottom-right corner.
+   Visible only when an admin is browsing handbook pages (not on /admin).
+   Does NOT affect header or page-layout offsets.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.admin-fab {
+  position: fixed;
+  bottom: 72px;
+  right: 28px;
+  z-index: 4500;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 18px 10px 14px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+
+  background: #093e61;
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(9, 62, 97, 0.45), 0 1px 4px rgba(0,0,0,0.18);
+
+  /* Subtle gold top-border accent */
+  outline: 2px solid rgba(245, 158, 11, 0.55);
+  outline-offset: 0px;
+
+  transition: background 0.18s ease, box-shadow 0.18s ease,
+              transform 0.18s ease, outline-color 0.18s ease;
+}
+
+.admin-fab:hover {
+  background: #0a4f7a;
+  box-shadow: 0 6px 24px rgba(9, 62, 97, 0.55), 0 2px 6px rgba(0,0,0,0.2);
+  transform: translateY(-2px);
+  outline-color: rgba(245, 158, 11, 0.9);
+}
+
+.admin-fab:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(9, 62, 97, 0.4);
+}
+
+.admin-fab__icon {
+  display: flex;
+  align-items: center;
+  color: #f59e0b;         /* gold icon */
+  flex-shrink: 0;
+}
+
+.admin-fab__label {
+  line-height: 1;
+}
+
+/* Responsive: shrink to icon-only on very small screens */
+@media (max-width: 480px) {
+  .admin-fab {
+    bottom: 64px;
+    right: 16px;
+    padding: 11px;
+    border-radius: 50%;
+  }
+
+  .admin-fab__label {
+    display: none;
+  }
+}

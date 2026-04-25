@@ -1,0 +1,772 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
+@import './components/Header.css';
+@import './styles/Home.css';
+@import './styles/Pages.css';
+@import './styles/IncomeTax.css';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Accessible Color Palette - WCAG AA Compliant */
+
+  /* Primary Brand Colors - High Contrast */
+  --primary: #093e61;
+  /* Navy Blue - Professional blue */
+  --primary-dark: #093e61;
+  /* Navy Blue - Darker shade for hover states */
+  --primary-light: #093e61;
+  /* Blue 700 - Lighter shade for light backgrounds */
+  --primary-50: #f8fafc;
+  /* Light blue background to match new theme */
+
+  /* Secondary Colors */
+  --secondary: #6b7280;
+  /* Gray 500 - 4.5:1 contrast on white */
+  --secondary-dark: #374151;
+  /* Gray 700 - 7:1 contrast on white */
+  --secondary-light: #9ca3af;
+  /* Gray 400 - 3:1 contrast on white */
+
+  /* Accent Colors */
+  --accent: #f59e0b;
+  /* Amber 500 - 4.5:1 contrast on white */
+  --accent-dark: #d97706;
+  /* Amber 600 - 7:1 contrast on white */
+  --accent-light: #fbbf24;
+  /* Amber 400 - 3:1 contrast on white */
+
+  /* Status Colors - High Contrast */
+  --success: #059669;
+  /* Emerald 600 - 4.5:1 contrast on white */
+  --success-light: #10b981;
+  /* Emerald 500 - 4.5:1 contrast on white */
+  --success-bg: #ecfdf5;
+  /* Emerald 50 - Light background */
+  --success-border: #a7f3d0;
+  /* Emerald 200 - Border color */
+
+  --warning: #d97706;
+  /* Amber 600 - 4.5:1 contrast on white */
+  --warning-dark: #b45309;
+  /* Amber 700 - 7:1 contrast on white */
+  --warning-light: #f59e0b;
+  /* Amber 500 - 4.5:1 contrast on white */
+  --warning-bg: #f9ede2;
+  /* Custom warm beige background */
+  --warning-border: #ffeaa7;
+  /* Amber 200 - Border color */
+  --warning-text: #856404;
+  /* Amber 800 - High contrast text */
+
+  --error: #dc2626;
+  /* Red 600 - 4.5:1 contrast on white */
+  --error-light: #ef4444;
+  /* Red 500 - 4.5:1 contrast on white */
+  --error-bg: #fef2f2;
+  /* Red 50 - Light background */
+  --error-border: #fecaca;
+  /* Red 200 - Border color */
+
+  --info: #093e61;
+  /* Navy Blue - 4.5:1 contrast on white */
+  --info-light: #093e61;
+  /* Navy Blue - 4.5:1 contrast on white */
+  --info-bg: #f8fafc;
+  /* Light background */
+  --info-border: #093e61;
+  /* Sky 200 - Border color */
+
+  /* UI Colors - High Contrast */
+  --background: #ffffff;
+  /* Pure white */
+  --surface: #f8fafc;
+  /* Slate 50 - Very light gray */
+  --surface-hover: #f1f5f9;
+  /* Slate 100 - Hover state */
+
+  /* Border Colors */
+  --border: #e2e8f0;
+  /* Slate 200 - 3:1 contrast on white */
+  --border-light: #f1f5f9;
+  /* Slate 100 - Light border */
+  --border-dark: #cbd5e1;
+  /* Slate 300 - Darker border */
+
+  /* Text Colors - High Contrast */
+  --text-primary: #0f172a;
+  /* Slate 900 - 7:1 contrast on white */
+  --text-secondary: #475569;
+  /* Slate 600 - 4.5:1 contrast on white */
+  --text-muted: #64748b;
+  /* Slate 500 - 3:1 contrast on white */
+  --text-light: #94a3b8;
+  /* Slate 400 - Light text */
+  --text: var(--text-primary);
+
+  /* Shadows with Bootstrap-like opacity */
+  --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  --shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+}
+
+body {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background);
+  color: var(--text-primary);
+  font-size: 16px;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* Typography - Roboto Font Sizes and Line Spacing */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  color: #093e61;
+}
+
+h1 {
+  font-size: 2.5rem;
+  /* 40px */
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 2rem;
+  /* 32px */
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.75rem;
+  /* 28px */
+  font-weight: 600;
+}
+
+h4 {
+  font-size: 1.5rem;
+  /* 24px */
+  font-weight: 500;
+}
+
+h5 {
+  font-size: 1.25rem;
+  /* 20px */
+  font-weight: 500;
+}
+
+h6 {
+  font-size: 1.125rem;
+  /* 18px */
+  font-weight: 500;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* Ensure proper viewport handling */
+html,
+body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+}
+
+/* Prevent content overflow */
+* {
+  box-sizing: border-box;
+}
+
+/* Ensure proper stacking context */
+.app {
+  position: relative;
+  z-index: 1;
+}
+
+.main-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Cards */
+.card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.card h2 {
+  font-size: 2rem;
+  /* 32px */
+  font-weight: 600;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  color: #093e61;
+}
+
+.card h3 {
+  font-size: 1.75rem;
+  /* 28px */
+  font-weight: 600;
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+  color: #093e61;
+}
+
+.card p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+/* Tables */
+.table-container {
+  overflow-x: auto;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  line-height: 1.5;
+  background: white;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.table th {
+  background: var(--surface);
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.table tr:hover {
+  background: var(--surface-hover);
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Lists */
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.list li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.list li:last-child {
+  border-bottom: none;
+}
+
+.list-disc {
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+
+.list-disc li {
+  padding: 0.25rem 0;
+  border-bottom: none;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Button System - Comprehensive Design */
+
+/* Base Button Styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  min-height: 44px;
+  /* Accessibility - minimum touch target */
+}
+
+.btn:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Call to Action Button - Most Important */
+.btn-cta {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 1rem 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(9, 62, 97, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-cta:hover::before {
+  left: 100%;
+}
+
+.btn-cta:hover {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+  box-shadow: 0 6px 20px rgba(9, 62, 97, 0.4);
+  text-decoration: none;
+  color: white;
+}
+
+.btn-cta:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(9, 62, 97, 0.3);
+}
+
+/* Primary Button - Main Action */
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  border: 1px solid var(--primary);
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+  text-decoration: none;
+  color: white;
+  box-shadow: 0 4px 12px rgba(9, 62, 97, 0.25);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(9, 62, 97, 0.2);
+}
+
+/* Secondary Button - Supporting Action */
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-dark);
+  text-decoration: none;
+  color: var(--text-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Warning Button - Caution/Destructive Actions */
+.btn-warning {
+  background: var(--warning);
+  color: white;
+  border: 1px solid var(--warning);
+  font-weight: 600;
+}
+
+.btn-warning:hover {
+  background: var(--warning-dark);
+  border-color: var(--warning-dark);
+  text-decoration: none;
+  color: white;
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25);
+}
+
+.btn-warning:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(217, 119, 6, 0.2);
+}
+
+/* Outline Button - Alternative Style */
+.btn-outline {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.btn-outline:hover {
+  background: var(--primary);
+  color: white;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(9, 62, 97, 0.25);
+}
+
+.btn-outline:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(9, 62, 97, 0.2);
+}
+
+/* Success Button - Positive Actions */
+.btn-success {
+  background: var(--success);
+  color: white;
+  border: 1px solid var(--success);
+}
+
+.btn-success:hover {
+  background: var(--success-light);
+  border-color: var(--success-light);
+  text-decoration: none;
+  color: white;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+}
+
+.btn-success:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(5, 150, 105, 0.2);
+}
+
+/* Error Button - Destructive Actions */
+.btn-error {
+  background: var(--error);
+  color: white;
+  border: 1px solid var(--error);
+}
+
+.btn-error:hover {
+  background: var(--error-light);
+  border-color: var(--error-light);
+  text-decoration: none;
+  color: white;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
+}
+
+.btn-error:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.2);
+}
+
+/* Button Sizes */
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 14px;
+  min-height: 36px;
+}
+
+.btn-lg {
+  padding: 1rem 2rem;
+  font-size: 18px;
+  min-height: 52px;
+}
+
+.btn-xl {
+  padding: 1.25rem 2.5rem;
+  font-size: 20px;
+  min-height: 60px;
+}
+
+/* Button with Icon */
+.btn-icon {
+  gap: 0.75rem;
+}
+
+.btn-icon-only {
+  padding: 0.75rem;
+  aspect-ratio: 1;
+  justify-content: center;
+}
+
+/* Full Width Button */
+.btn-full {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Button Showcase Styles */
+.button-showcase {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.button-showcase h2 {
+  color: var(--text-primary);
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.button-section {
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+  background: var(--surface);
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+}
+
+.button-section h3 {
+  color: var(--primary);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.button-section p {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.button-examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.button-examples .btn {
+  margin: 0;
+}
+
+/* Responsive Design for Button Showcase */
+@media (max-width: 768px) {
+  .button-showcase {
+    padding: 1rem;
+  }
+
+  .button-section {
+    padding: 1rem;
+  }
+
+  .button-examples {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .button-examples .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Alerts */
+.alert {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.alert-info {
+  background: rgb(59 130 246 / 0.1);
+  border-left-color: var(--primary);
+  color: var(--primary-dark);
+}
+
+.alert-warning {
+  background: rgb(245 158 11 / 0.1);
+  border-left-color: var(--warning);
+  color: #92400e;
+}
+
+.alert-success {
+  background: rgb(16 185 129 / 0.1);
+  border-left-color: var(--success);
+  color: #065f46;
+}
+
+.alert-error {
+  background: rgb(239 68 68 / 0.1);
+  border-left-color: var(--error);
+  color: #991b1b;
+}
+
+/* Utility classes */
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.text-sm {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.text-lg {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.text-xl {
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.text-2xl {
+  font-size: 24px;
+  line-height: 1.5;
+}
+
+.text-3xl {
+  font-size: 30px;
+  line-height: 1.5;
+}
+
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
+.p-4 {
+  padding: 1rem;
+}
+
+.p-6 {
+  padding: 1.5rem;
+}
+
+.rounded {
+  border-radius: 0.375rem;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.shadow {
+  box-shadow: var(--shadow);
+}
+
+.shadow-lg {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .btn {
+    padding: 0.5rem 1rem;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+
+  .table-container {
+    margin: 0.5rem 0;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.5rem;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}

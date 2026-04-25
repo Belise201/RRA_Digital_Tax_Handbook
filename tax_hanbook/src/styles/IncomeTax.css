@@ -1,0 +1,636 @@
+/* Income Tax Page Specific Styles */
+
+/* Tax Types Grid */
+.tax-types-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.tax-type-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.tax-type-card:hover {
+  box-shadow: var(--shadow);
+}
+
+.tax-type-icon {
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.tax-type-card h3 {
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  font-size: 1.125rem;
+}
+
+.tax-type-card p {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.tax-rate-badge {
+  background: var(--primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+/* Regimes Grid */
+.regimes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.regime-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  transition: all 0.2s;
+}
+
+.regime-card:hover {
+  box-shadow: var(--shadow);
+}
+
+.regime-card h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.regime-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.regime-turnover {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+.regime-type {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.regime-rates h4,
+.regime-requirements h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.regime-rates ul,
+.regime-requirements ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.regime-rates li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.875rem;
+}
+
+.regime-rates li:last-child {
+  border-bottom: none;
+}
+
+.rate-turnover {
+  color: var(--text-secondary);
+}
+
+.rate-amount {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.rate-income {
+  color: var(--text-secondary);
+}
+
+.rate-percentage {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.rate-display {
+  background: var(--primary);
+  color: white;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.regime-requirements li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.regime-requirements li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+  font-weight: bold;
+}
+
+/* Deadlines Grid */
+.deadlines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.deadline-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.deadline-card:hover {
+  box-shadow: var(--shadow);
+}
+
+.deadline-icon {
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.deadline-card h3 {
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+}
+
+.deadline-details {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.deadline-details p {
+  margin-bottom: 0.5rem;
+}
+
+.deadline-details ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.deadline-details li {
+  padding: 0.25rem 0;
+  color: var(--text-secondary);
+}
+
+/* IQP Section */
+.iqp-info {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.iqp-calculation {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+}
+
+.iqp-calculation h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.iqp-calculation p {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.example-box {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.example-box h4 {
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+}
+
+.example-box p {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.calculation {
+  background: var(--primary);
+  color: white;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.iqp-benefits {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+}
+
+.iqp-benefits h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.iqp-benefits ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.iqp-benefits li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.iqp-benefits li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--success);
+  font-weight: bold;
+}
+
+/* Withholding Taxes Grid */
+.withholding-taxes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.withholding-tax-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  transition: all 0.2s;
+}
+
+.withholding-tax-card:hover {
+  box-shadow: var(--shadow);
+}
+
+.withholding-tax-card h3 {
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+  font-size: 1.125rem;
+}
+
+.withholding-tax-card p {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.withholding-tax-card .tax-rate {
+  background: var(--primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  display: inline-block;
+}
+
+/* Expenses Grid */
+.expenses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.expenses-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+}
+
+.expenses-card h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.expenses-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.expenses-card li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+}
+
+.expenses-card li:last-child {
+  border-bottom: none;
+}
+
+.expenses-card li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+  font-weight: bold;
+}
+
+/* Declaration Methods Grid */
+.declaration-methods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.declaration-method-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  transition: all 0.2s;
+}
+
+.declaration-method-card:hover {
+  box-shadow: var(--shadow);
+}
+
+.method-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.method-header svg {
+  color: var(--primary);
+}
+
+.method-header h3 {
+  color: var(--primary);
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+.declaration-method-card p {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.method-features h4 {
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+}
+
+.method-features ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+}
+
+.method-features li {
+  padding: 0.25rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.method-features li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--success);
+  font-weight: bold;
+}
+
+.method-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.method-link:hover {
+  color: var(--primary-dark);
+  text-decoration: none;
+}
+
+.method-code {
+  background: var(--surface);
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: 'Courier New', monospace;
+  border: 1px solid var(--border);
+}
+
+/* Guides Grid */
+.guides-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.guide-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  transition: all 0.2s;
+}
+
+.guide-card:hover {
+  box-shadow: var(--shadow);
+}
+
+.guide-card h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.guide-card ol {
+  padding-left: 1.5rem;
+  margin: 0;
+}
+
+.guide-card li {
+  padding: 0.5rem 0;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+/* Motor Vehicle Section */
+.motor-vehicle-info {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.motor-vehicle-info p {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.motor-vehicle-rates h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.rates-table {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.rate-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.rate-row:last-child {
+  border-bottom: none;
+}
+
+.vehicle-type {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.rate-amount {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .tax-types-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .regimes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .deadlines-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .iqp-info {
+    grid-template-columns: 1fr;
+  }
+
+  .withholding-taxes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .expenses-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .declaration-methods-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .guides-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rate-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .tax-type-card,
+  .regime-card,
+  .deadline-card,
+  .iqp-calculation,
+  .iqp-benefits,
+  .withholding-tax-card,
+  .expenses-card,
+  .declaration-method-card,
+  .guide-card,
+  .motor-vehicle-info {
+    padding: 1rem;
+  }
+
+  .calculation {
+    font-size: 0.875rem;
+    padding: 0.5rem;
+  }
+}

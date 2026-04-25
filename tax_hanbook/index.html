@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="./vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="RRA Tax Handbook 2025 - Complete guide to Rwanda's tax system, registration, declarations, and payments" />
+  <meta name="keywords"
+    content="RRA, Rwanda Revenue Authority, tax handbook, taxes, registration, VAT, income tax, customs" />
+  <meta name="author" content="Rwanda Revenue Authority" />
+  <title>RRA Tax Handbook 2025 - Rwanda Revenue Authority</title>
+
+  <!-- Google Translate — hidden widget, driven by our language selector -->
+  <style>
+    /* Hide all Google Translate UI chrome — our language selector drives it */
+    .goog-te-banner-frame,
+    #goog-te-banner-frame,
+    .goog-te-gadget,
+    .goog-te-gadget-simple,
+    .goog-te-menu-frame {
+      display: none !important;
+    }
+
+    /* Prevent Google Translate from pushing the page down */
+    body {
+      top: 0px !important;
+      position: static !important;
+    }
+
+    /* Remove Google Translate text highlights / underlines */
+    .goog-text-highlight {
+      background-color: transparent !important;
+      box-shadow: none !important;
+    }
+
+    /* Keep font sizes intact after translation */
+    font[size] {
+      font-size: inherit !important;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Hidden Google Translate mount point -->
+  <div id="google_translate_element" style="display:none;visibility:hidden;"></div>
+
+  <div id="root"></div>
+  <script type="module" src="./src/main.jsx"></script>
+
+  <!-- Google Translate element initialiser -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        {
+          pageLanguage: 'en',
+          includedLanguages: 'en,fr,rw',
+          layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+          autoDisplay: false,
+          gaTrack: false
+        },
+        'google_translate_element'
+      );
+    }
+
+    /**
+     * Apply a Google Translate language without showing its UI.
+     * Called by LanguageContextProvider whenever the user picks fr or rw.
+     * Switching back to English is handled entirely in React (remountKey)
+     * so this function is only ever called for non-English languages now.
+     */
+    window.__rraSetTranslation = function (langCode) {
+      // Translate to the requested language via Google Translate's hidden select.
+      var attempt = 0;
+      function tryTranslate() {
+        var select = document.querySelector('.goog-te-combo');
+        if (!select) {
+          if (attempt < 25) {
+            attempt++;
+            setTimeout(tryTranslate, 250);
+          }
+          return;
+        }
+        select.value = langCode;
+        var evt = document.createEvent('HTMLEvents');
+        evt.initEvent('change', true, true);
+        select.dispatchEvent(evt);
+      }
+      tryTranslate();
+    };
+  </script>
+
+  <!-- Load the Google Translate widget script -->
+  <script type="text/javascript"
+    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+    async defer></script>
+</body>
+
+</html>
