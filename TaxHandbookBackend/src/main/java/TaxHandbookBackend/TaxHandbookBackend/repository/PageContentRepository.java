@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface PageContentRepository extends JpaRepository<PageContent, Long> {
     Optional<PageContent> findByPagePath(String pagePath);
     List<PageContent> findAllByOrderByLastEditedAtDesc();
+    List<PageContent> findByActiveFalse();
 }

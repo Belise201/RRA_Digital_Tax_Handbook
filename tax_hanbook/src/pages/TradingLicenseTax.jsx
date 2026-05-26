@@ -44,7 +44,7 @@ const TradingLicenseTax = () => {
                     <div style={{ margin: '2rem 1rem', padding: '1rem', backgroundColor: '#b5cbee', borderRadius: '0.5rem' }}>
                         <h3 style={{ marginTop: 0, color: 'var(--primary)' }}>Example 64</h3>
                         <p className="content-paragraph" style={{ marginBottom: 0 }}>
-                            Footie Fun Pub is established in 1 April 2023. As the pub is considered a small enterprise, it will be exempted from Trading License Tax from 1st April to 31st December 2023, from 1st January to 31st December 2024, and from 1st January to 31st March 2025. By 7th April 2025, Footie Fun Pub will need to declare and pay Trading License Tax for April to December 2025. The deadline for declaring and paying Trading License Tax for 2025 will be 31st March 2025.
+                            Footie Fun Pub is established in 1 April 2023. As the pub is considered a small enterprise, it will be exempted from Trading License Tax from 1st April to 31st December 2023, from 1st January to 31st December 2024, and from 1st January to 31st March 2026. By 7th April 2026, Footie Fun Pub will need to declare and pay Trading License Tax for April to December 2026. The deadline for declaring and paying Trading License Tax for 2026 will be 31st March 2026.
                         </p>
                     </div>
                 </section>

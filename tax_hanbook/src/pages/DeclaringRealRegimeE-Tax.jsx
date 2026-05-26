@@ -43,7 +43,7 @@ const DeclaringRealRegimeETax = () => {
                         In addition, if the taxpayer's annual turnover is above FRW 600,000,000, the 'Certified Financial Statements' annexure must also be uploaded by approved certifying audit firm and then being available on taxpayer's side by RRA tax system. For more details on these additional documents, <Link to="/real-regime-details">(check on Real Regime Details)</Link>.
                     </p>
                     <p className="content-paragraph">
-                        From FY 2025, taxpayers filing for income tax are required to provide the following (if any) through E-Tax, online requests menu, CIT/PIT requests:
+                        From FY 2026, taxpayers filing for income tax are required to provide the following (if any) through E-Tax, online requests menu, CIT/PIT requests:
                     </p>
                     <ul className="content-list">
                         <li>Extension of financial reports submission,</li>

@@ -1,14 +1,18 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Search, FileText, ArrowRight } from 'lucide-react';
-import { searchPages } from '../data/searchData';
+import { searchPages, normalizeSearchQuery } from '../data/searchData';
 
 const SearchResults = ({ searchQuery }) => {
   const location = useLocation();
   const urlParams = new URLSearchParams(location.search);
   const queryFromUrl = urlParams.get('q') || '';
-  const actualQuery = searchQuery || queryFromUrl;
-  const searchResults = searchPages(actualQuery);
+  const fromUrl = queryFromUrl.trim();
+  const fromState = (searchQuery || '').trim();
+  const rawQuery = fromUrl.length > 0 ? fromUrl : fromState;
+  const actualQuery = normalizeSearchQuery(rawQuery);
+  const displayQuery = actualQuery || rawQuery.trim();
+  const searchResults = searchPages(rawQuery);
 
   return (
     <>
@@ -18,38 +22,22 @@ const SearchResults = ({ searchQuery }) => {
           margin: 0 auto;
           padding: 2rem 1rem;
         }
-        
-        .search-header-panel {
-          background: linear-gradient(135deg, var(--primary) 0%, #0a4d7a 100%);
-          border-radius: 1rem;
-          padding: 2.5rem 2rem;
-          margin-bottom: 2rem;
-          box-shadow: 0 4px 20px rgba(9, 62, 97, 0.2);
-          color: white;
+
+        .search-results-intro {
+          margin-bottom: 1.5rem;
         }
-        
-        .search-header-content {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          margin-bottom: 0.75rem;
-        }
-        
-        .search-header-icon {
-          color: rgba(255, 255, 255, 0.95);
-        }
-        
-        .search-header-title {
-          font-size: 2rem;
+
+        .search-results-intro h1 {
+          font-size: 1.75rem;
           font-weight: 700;
-          margin: 0;
-          color: white;
+          color: #093e61;
+          margin: 0 0 0.5rem 0;
         }
-        
-        .search-results-count {
-          font-size: 1rem;
-          color: rgba(255, 255, 255, 0.9);
+
+        .search-results-intro p {
           margin: 0;
+          color: var(--text-secondary);
+          line-height: 1.5;
         }
         
         .search-results-grid {
@@ -206,14 +194,6 @@ const SearchResults = ({ searchQuery }) => {
         }
         
         @media (max-width: 768px) {
-          .search-header-panel {
-            padding: 2rem 1.5rem;
-          }
-          
-          .search-header-title {
-            font-size: 1.75rem;
-          }
-          
           .search-result-top {
             padding: 0.875rem 1.25rem;
           }
@@ -225,18 +205,14 @@ const SearchResults = ({ searchQuery }) => {
       `}</style>
 
       <div className="search-results-container">
-        <div className="search-header-panel">
-          <div className="search-header-content">
-            <Search size={28} className="search-header-icon" />
-            <h1 className="search-header-title">Search Results</h1>
-          </div>
-          <p className="search-results-count">
+        <section className="content-section search-results-intro">
+          <h1>Search results</h1>
+          <p>
             {searchResults.length > 0
-              ? `Found ${searchResults.length} result${searchResults.length === 1 ? '' : 's'} for: "${actualQuery}"`
-              : `No results found for: "${actualQuery}"`
-            }
+              ? `Found ${searchResults.length} result${searchResults.length === 1 ? '' : 's'} for: "${displayQuery}"`
+              : `No results found for: "${displayQuery || '—'}"`}
           </p>
-        </div>
+        </section>
 
         {searchResults.length > 0 ? (
           <div className="search-results-grid">

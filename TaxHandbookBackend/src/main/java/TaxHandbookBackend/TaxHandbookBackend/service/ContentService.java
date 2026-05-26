@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,16 @@ public class ContentService {
 
     public Optional<AdminDTOs.PageContentDTO> getByPath(String pagePath) {
         return repo.findByPagePath(pagePath).map(this::toDTO);
+    }
+
+    /** Paths of handbook pages hidden from the public (for nav / search filtering). */
+    public List<String> getHiddenPagePaths() {
+        return repo.findByActiveFalse().stream()
+                .map(PageContent::getPagePath)
+                .filter(Objects::nonNull)
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .collect(Collectors.toList());
     }
 
     public AdminDTOs.PageContentDTO save(AdminDTOs.SavePageContentRequest req, String adminEmail) {

@@ -1,17 +1,10 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { X, Mail, Lock, Eye, EyeOff, AlertCircle, UserCircle } from 'lucide-react';
+import { X, Mail, Lock, LogIn, Eye, EyeOff, AlertCircle, UserCircle } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
-import { useLanguage } from '../hooks/useLanguage';
-import { useTranslations } from '../translations';
 import './LoginModal.css';
 
-const LoginModal = ({ onClose, onSwitchToSignUp }) => {
+const LoginModal = ({ onClose, onSwitchToSignUp, onAuthenticated }) => {
   const { login } = useAuth();
-  const navigate = useNavigate();
-  const { currentLanguage } = useLanguage();
-  const { t } = useTranslations(currentLanguage);
-
   const [email, setEmail]       = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole]         = useState('taxpayer');
@@ -24,11 +17,9 @@ const LoginModal = ({ onClose, onSwitchToSignUp }) => {
     setError('');
     setLoading(true);
     try {
-      const userData = await login(email, password, role);
+      await login(email, password, role);
+      onAuthenticated?.();
       onClose();
-      if (userData?.role === 'ADMIN') {
-        navigate('/admin');
-      }
     } catch (err) {
       setError(err.message || 'Invalid email or password');
     } finally {
@@ -37,7 +28,7 @@ const LoginModal = ({ onClose, onSwitchToSignUp }) => {
   };
 
   return (
-    <div className="auth-overlay" onClick={(e) => e.target === e.currentTarget && onClose()}>
+    <div className="auth-overlay notranslate" translate="no" onClick={(e) => e.target === e.currentTarget && onClose()}>
       <div className="auth-modal" role="dialog" aria-modal="true" aria-labelledby="login-title">
 
         {/* Header */}
@@ -61,14 +52,14 @@ const LoginModal = ({ onClose, onSwitchToSignUp }) => {
         {/* Form */}
         <form className="auth-form" onSubmit={handleSubmit} noValidate autoComplete="off">
           <div className="auth-field">
-            <label htmlFor="login-email" className="auth-label">{t('auth.login.email')}</label>
+            <label htmlFor="login-email" className="auth-label">Email Address</label>
             <div className="auth-input-wrapper">
               <Mail size={16} className="auth-input-icon" />
               <input
                 id="login-email"
                 type="email"
                 className="auth-input"
-                placeholder={t('auth.login.emailPlaceholder')}
+                placeholder="you@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -79,14 +70,14 @@ const LoginModal = ({ onClose, onSwitchToSignUp }) => {
           </div>
 
           <div className="auth-field">
-            <label htmlFor="login-password" className="auth-label">{t('auth.login.password')}</label>
+            <label htmlFor="login-password" className="auth-label">Password</label>
             <div className="auth-input-wrapper">
               <Lock size={16} className="auth-input-icon" />
               <input
                 id="login-password"
                 type={showPwd ? 'text' : 'password'}
                 className="auth-input auth-input--padded-right"
-                placeholder={t('auth.login.passwordPlaceholder')}
+                placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -104,7 +95,7 @@ const LoginModal = ({ onClose, onSwitchToSignUp }) => {
           </div>
 
           <div className="auth-field">
-            <label htmlFor="login-role" className="auth-label">{t('auth.login.role')}</label>
+            <label htmlFor="login-role" className="auth-label">Role</label>
             <div className="auth-input-wrapper">
               <UserCircle size={16} className="auth-input-icon" />
               <select
@@ -114,8 +105,8 @@ const LoginModal = ({ onClose, onSwitchToSignUp }) => {
                 onChange={(e) => setRole(e.target.value)}
                 required
               >
-                <option value="taxpayer">{t('auth.login.taxpayer')}</option>
-                <option value="admin">{t('auth.login.admin')}</option>
+                <option value="taxpayer">Taxpayer</option>
+                <option value="admin">Admin</option>
               </select>
             </div>
           </div>
@@ -129,21 +120,23 @@ const LoginModal = ({ onClose, onSwitchToSignUp }) => {
             {loading ? (
               <span className="auth-spinner" />
             ) : (
-              t('auth.login.submit')
+              <>
+                Sign In
+              </>
             )}
           </button>
         </form>
 
         {/* Footer */}
         <p className="auth-switch-text">
-          {t('auth.login.noAccount')}{' '}
+          Don&apos;t have an account?{' '}
           <button
             id="switch-to-signup-btn"
             type="button"
             className="auth-switch-link"
             onClick={onSwitchToSignUp}
           >
-            {t('auth.login.signUp')}
+            Sign up
           </button>
         </p>
       </div>
@@ -152,3 +145,4 @@ const LoginModal = ({ onClose, onSwitchToSignUp }) => {
 };
 
 export default LoginModal;
+

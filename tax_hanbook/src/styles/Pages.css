@@ -64,9 +64,104 @@
   overflow: hidden;
 }
 
+/* FAQ accordion blocks: avoid clipping long answers / tables when expanded */
+.content-section.faq-topic-section {
+  overflow: visible;
+}
+
 
 .content-section:hover {
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Plain flowing sections (no card chrome) — RRA contact, definitions, etc. */
+.page-content.page-content--plain-flow .content-section {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  margin-bottom: 2rem;
+  transition: none;
+}
+
+.page-content.page-content--plain-flow .content-section:hover {
+  box-shadow: none;
+}
+
+.page-content.page-content--plain-flow .content-section:last-child {
+  margin-bottom: 0;
+}
+
+.page-content.page-content--plain-flow .content-address-lines {
+  font-style: normal;
+  margin: 0 0 1rem 0;
+}
+
+.page-content.page-content--plain-flow .content-address-lines .content-paragraph {
+  margin-bottom: 0.25rem;
+}
+
+.page-content.page-content--plain-flow .content-address-lines .content-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.page-content.page-content--plain-flow .content-address-lines.content-address-lines--spaced {
+  margin-top: 1rem;
+}
+
+.page-content.page-content--plain-flow .rra-social-links,
+.home-plain-section.home-about-handbook .rra-social-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.page-content.page-content--plain-flow .rra-social-links li,
+.home-plain-section.home-about-handbook .rra-social-links li {
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.page-content.page-content--plain-flow .rra-social-links a,
+.home-plain-section.home-about-handbook .rra-social-links a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--primary);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.page-content.page-content--plain-flow .rra-social-links a:hover,
+.home-plain-section.home-about-handbook .rra-social-links a:hover {
+  color: var(--primary-dark);
+}
+
+.page-content.page-content--plain-flow .rra-social-links .social-icon,
+.home-plain-section.home-about-handbook .rra-social-links .social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  flex-shrink: 0;
+}
+
+.page-content.page-content--plain-flow .content-section h2 {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.page-content.page-content--plain-flow .content-section h2::after {
+  display: none;
+  content: none;
 }
 
 .content-section h2 {
@@ -4911,6 +5006,14 @@
   .professional-title-divider {
     margin: 0 auto 0.75rem auto;
   }
+}
+
+/*
+ * Top title strip (white card + navy accent) repeats topics already shown in page content.
+ * Target any depth under the handbook main column (PageWrapper may wrap the route).
+ */
+main.content .professional-header {
+  display: none !important;
 }
 
 /* Smaller Text Sizing for All Pages */

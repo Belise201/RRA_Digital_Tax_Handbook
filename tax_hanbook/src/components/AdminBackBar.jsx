@@ -13,7 +13,9 @@ const AdminBackBar = () => {
 
   return (
     <button
-      className="admin-fab"
+      type="button"
+      className="admin-fab notranslate"
+      translate="no"
       onClick={() => navigate('/admin')}
       aria-label="Back to Admin Dashboard"
       title="Back to Admin Dashboard"

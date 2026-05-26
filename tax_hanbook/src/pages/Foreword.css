@@ -1,0 +1,195 @@
+/* ============================================================
+   Foreword page
+   ============================================================ */
+
+.foreword-page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 0.75rem 2.5rem;
+}
+
+/* ── Page title ─────────────────────────────────────────── */
+.foreword-title {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #093e61;
+  margin: 0 0 1.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 3px solid #4495d1;
+}
+
+/* ── Commissioner profile ───────────────────────────────── */
+.foreword-profile {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+  background: #fff;
+  border: 1px solid #dde3ea;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 18px rgba(9, 62, 97, 0.08);
+}
+
+.foreword-profile__photo-wrap {
+  flex-shrink: 0;
+}
+
+.foreword-profile__photo {
+  width: 200px;
+  height: 240px;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 10px;
+  border: 3px solid #093e61;
+  display: block;
+  box-shadow: 0 6px 20px rgba(9, 62, 97, 0.18);
+}
+
+.foreword-profile__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.4rem;
+  padding-top: 0.5rem;
+}
+
+.foreword-profile__name {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #093e61;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.foreword-profile__role {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #4495d1;
+  margin: 0;
+}
+
+.foreword-profile__org {
+  font-size: 0.95rem;
+  color: #5b6880;
+  margin: 0;
+}
+
+.foreword-profile__divider {
+  width: 48px;
+  height: 3px;
+  background: #4495d1;
+  border-radius: 2px;
+  margin: 0.75rem 0;
+}
+
+.foreword-profile__tagline {
+  font-size: 1rem;
+  font-style: italic;
+  color: #093e61;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* ── Message section ────────────────────────────────────── */
+.foreword-message {
+  background: #fff;
+  border: 1px solid #dde3ea;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 18px rgba(9, 62, 97, 0.08);
+}
+
+.foreword-message__header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #093e61;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+.foreword-message__icon {
+  color: #4495d1;
+  flex-shrink: 0;
+}
+
+.foreword-message__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.foreword-message__para {
+  font-size: 0.97rem;
+  line-height: 1.8;
+  color: #374151;
+  margin: 0;
+  text-align: justify;
+}
+
+.foreword-message__sign {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #f1f5f9;
+}
+
+.foreword-message__sign-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #093e61;
+  margin: 0 0 0.2rem;
+}
+
+.foreword-message__sign-title {
+  font-size: 0.9rem;
+  color: #4495d1;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 680px) {
+  .foreword-profile {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .foreword-profile__photo {
+    width: 160px;
+    height: 200px;
+  }
+
+  .foreword-profile__divider {
+    margin: 0.75rem auto;
+  }
+
+  .foreword-title {
+    font-size: 1.5rem;
+  }
+
+  .foreword-message {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .foreword-profile__photo {
+    width: 140px;
+    height: 175px;
+  }
+
+  .foreword-title {
+    font-size: 1.3rem;
+  }
+
+  .foreword-message__para {
+    text-align: left;
+  }
+}

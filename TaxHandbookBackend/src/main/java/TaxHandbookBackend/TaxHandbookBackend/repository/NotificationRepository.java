@@ -9,7 +9,9 @@ import java.util.List;
 @Repository
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
     List<Notification> findByActiveTrueOrderByCreatedAtDesc();
-    List<Notification> findByActiveTrueAndPagePathIsNullOrderByCreatedAtDesc();
-    List<Notification> findByActiveTrueAndPagePathOrderByCreatedAtDesc(String pagePath);
+    /** Public global banners only (no per-user targeting). */
+    List<Notification> findByActiveTrueAndRecipientEmailIsNullAndPagePathIsNullOrderByCreatedAtDesc();
+    /** Public page banners only. */
+    List<Notification> findByActiveTrueAndRecipientEmailIsNullAndPagePathOrderByCreatedAtDesc(String pagePath);
     List<Notification> findAllByOrderByCreatedAtDesc();
 }

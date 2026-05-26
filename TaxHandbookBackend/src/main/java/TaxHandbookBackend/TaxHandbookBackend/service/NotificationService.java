@@ -22,25 +22,52 @@ public class NotificationService {
 
     public List<AdminDTOs.NotificationDTO> getActiveNotifications() {
         return repo.findByActiveTrueOrderByCreatedAtDesc().stream()
+                .filter(n -> n.getRecipientEmail() == null || n.getRecipientEmail().isBlank())
                 .map(this::toDTO).collect(Collectors.toList());
     }
 
+    /**
+     * Bell inbox for a signed-in user: all broadcast (no recipient) active notifications,
+     * plus targeted rows where {@code recipientEmail} matches this user.
+     */
+    public List<AdminDTOs.NotificationDTO> getInboxForUser(String userEmail) {
+        if (userEmail == null || userEmail.isBlank()) {
+            return List.of();
+        }
+        String e = userEmail.trim().toLowerCase();
+        return repo.findByActiveTrueOrderByCreatedAtDesc().stream()
+                .filter(n -> {
+                    String r = n.getRecipientEmail();
+                    if (r == null || r.isBlank()) {
+                        return true;
+                    }
+                    return r.trim().toLowerCase().equals(e);
+                })
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
     public List<AdminDTOs.NotificationDTO> getGlobalActiveNotifications() {
-        return repo.findByActiveTrueAndPagePathIsNullOrderByCreatedAtDesc().stream()
+        return repo.findByActiveTrueAndRecipientEmailIsNullAndPagePathIsNullOrderByCreatedAtDesc().stream()
                 .map(this::toDTO).collect(Collectors.toList());
     }
 
     public List<AdminDTOs.NotificationDTO> getPageActiveNotifications(String pagePath) {
-        return repo.findByActiveTrueAndPagePathOrderByCreatedAtDesc(pagePath).stream()
+        return repo.findByActiveTrueAndRecipientEmailIsNullAndPagePathOrderByCreatedAtDesc(pagePath).stream()
                 .map(this::toDTO).collect(Collectors.toList());
     }
 
     public AdminDTOs.NotificationDTO create(AdminDTOs.CreateNotificationRequest req, String adminEmail) {
+        String rec = req.getRecipientEmail() != null ? req.getRecipientEmail().trim() : null;
+        if (rec != null && rec.isEmpty()) {
+            rec = null;
+        }
         Notification n = Notification.builder()
                 .title(req.getTitle())
                 .message(req.getMessage())
                 .pagePath(req.getPagePath() != null && !req.getPagePath().isBlank()
                         ? req.getPagePath() : null)
+                .recipientEmail(rec)
                 .active(true)
                 .createdBy(adminEmail)
                 .build();
@@ -61,7 +88,7 @@ public class NotificationService {
     private AdminDTOs.NotificationDTO toDTO(Notification n) {
         return new AdminDTOs.NotificationDTO(
                 n.getId(), n.getTitle(), n.getMessage(),
-                n.getPagePath(), n.isActive(),
+                n.getPagePath(), n.getRecipientEmail(), n.isActive(),
                 n.getCreatedBy(), n.getCreatedAt());
     }
 }

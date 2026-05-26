@@ -5,7 +5,7 @@ import { useLanguage } from '../hooks/useLanguage';
 import { useTranslations } from '../translations';
 import './LoginModal.css';
 
-const SignUpModal = ({ onClose, onSwitchToLogin }) => {
+const SignUpModal = ({ onClose, onSwitchToLogin, onAuthenticated }) => {
   const { register } = useAuth();
   const { currentLanguage } = useLanguage();
   const { t } = useTranslations(currentLanguage);
@@ -36,6 +36,7 @@ const SignUpModal = ({ onClose, onSwitchToLogin }) => {
     setLoading(true);
     try {
       await register(form.firstName, form.lastName, form.email, form.password);
+      onAuthenticated?.();
       onClose();
     } catch (err) {
       setError(err.message || 'Registration failed');
@@ -47,13 +48,13 @@ const SignUpModal = ({ onClose, onSwitchToLogin }) => {
   const pwdMatch = form.confirmPassword && form.password === form.confirmPassword;
 
   return (
-    <div className="auth-overlay" onClick={(e) => e.target === e.currentTarget && onClose()}>
+    <div className="auth-overlay notranslate" translate="no" onClick={(e) => e.target === e.currentTarget && onClose()}>
       <div className="auth-modal auth-modal--signup" role="dialog" aria-modal="true" aria-labelledby="signup-title">
 
         {/* Header */}
         <div className="auth-modal-header">
-          <div className="auth-modal-logo" style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <img src="./images/rra-logo.png" alt="RRA Logo" style={{ width: '100%', height: '100%', maxHeight: '80px', objectFit: 'contain' }} />
+          <div className="auth-modal-logo auth-modal-logo--signup">
+            <img src="./images/rra-logo.png" alt="RRA Logo" className="auth-modal-logo-img--signup" />
           </div>
           <button className="auth-modal-close" onClick={onClose} aria-label="Close">
             <X size={20} />
@@ -75,7 +76,7 @@ const SignUpModal = ({ onClose, onSwitchToLogin }) => {
         )}
 
         {/* Form */}
-        <form className="auth-form" onSubmit={handleSubmit} noValidate>
+        <form className="auth-form auth-form--signup" onSubmit={handleSubmit} noValidate>
           <div className="auth-field-row">
             <div className="auth-field">
               <label htmlFor="signup-fname" className="auth-label">{t('auth.signup.firstName')}</label>
@@ -173,7 +174,7 @@ const SignUpModal = ({ onClose, onSwitchToLogin }) => {
           <button
             id="signup-submit-btn"
             type="submit"
-            className="auth-submit-btn auth-submit-btn--signup"
+            className="auth-submit-btn"
             disabled={loading}
           >
             {loading ? (

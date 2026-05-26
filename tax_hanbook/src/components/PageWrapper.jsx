@@ -1,12 +1,32 @@
-import { useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useRef, useCallback, useEffect } from 'react';
+import { useLocation, Navigate } from 'react-router-dom';
 import { AlertTriangle } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { usePageContent } from '../hooks/usePageContent';
 import AdminEditBar from './AdminEditBar';
+import { sanitizeHandbookHtml } from '../utils/sanitizeHandbookHtml';
 import './PageWrapper.css';
 
-// Map common paths to readable titles
+const CMS_OVERRIDE_DISABLED_PATHS = new Set([
+  '/faq',
+  '/profile',
+  '/',
+  // FAQ summary pages use React accordion — CMS override would break expandable questions
+  '/registration-summary',
+  '/domestic-e-tax',
+  '/pit-cit-sum',
+  '/paye-sum',
+  '/vat-sum',
+  '/eis-sum',
+  '/excise-sum',
+  '/wht-sum',
+  '/customs-sum',
+  '/paying-sum',
+  '/obligations',
+  '/decentralised-entities',
+  '/deregistration',
+]);
+
 const PAGE_TITLES = {
   '/':                           'Home',
   '/introduction':               'Introduction',
@@ -16,6 +36,7 @@ const PAGE_TITLES = {
   '/acronyms':                   'Acronyms',
   '/laws-rulings':               'Laws, Orders & Rulings',
   '/obligations':                'Obligations & Bookkeeping',
+  '/decentralised-entities':     'Decentralised Entities Taxes & Fees',
   '/audits':                     'Audits',
   '/refunds':                    'Refunds / Tax Credits',
   '/appeals':                    'Appeals',
@@ -47,80 +68,66 @@ const PAGE_TITLES = {
   '/capital-gains-tax-explanation': 'Capital Gains Tax',
   '/customs-explanation':        'Customs',
   '/paying-taxes':               'Paying Taxes',
+  '/deregistration':             'De-Registration',
+  '/faq':                        'Submit a new question',
+  '/profile':                    'Your account',
 };
 
-/**
- * Strip SVG icons, data-react attributes, and inline event handlers from raw
- * rendered HTML so the editor starts with clean, human-readable markup.
- */
-const cleanRenderedHTML = (html) => {
-  const div = document.createElement('div');
-  div.innerHTML = html;
-  // Remove icon SVGs and any script/style nodes
-  div.querySelectorAll('svg, script, style, noscript').forEach(el => el.remove());
-  // Remove data-* and aria-* attributes that clutter the editor
-  div.querySelectorAll('*').forEach(el => {
-    [...el.attributes].forEach(attr => {
-      if (attr.name.startsWith('data-') || attr.name.startsWith('aria-') || attr.name === 'class') {
-        el.removeAttribute(attr.name);
-      }
-    });
-  });
-  return div.innerHTML;
-};
+const cleanRenderedHTML = (html) => sanitizeHandbookHtml(html);
 
 const PageWrapper = ({ children }) => {
   const location           = useLocation();
   const { user, isAdmin }  = useAuth();
   const pagePath           = location.pathname;
   const pageTitle          = PAGE_TITLES[pagePath] || pagePath;
-  const contentRef         = useRef(null);   // ref on the rendered content
+  const contentRef         = useRef(null);
 
+  const cmsOverrideDisabled = CMS_OVERRIDE_DISABLED_PATHS.has(pagePath);
   const { data, loading, refetch } = usePageContent(pagePath);
 
-  // While fetching, render the static page without any flash
-  if (loading) return <>{children}</>;
-
-  const adminView   = user && isAdmin();
+  const adminView   = Boolean(user && isAdmin());
   const isHidden    = data && !data.active;
-  const hasOverride = data && data.active && data.content && data.content.trim();
 
-  // Non-admin visiting a hidden page
-  if (isHidden && !adminView) {
-    return (
-      <div className="pw-unavailable">
-        <AlertTriangle size={48} className="pw-unavailable__icon" />
-        <h2>Page Unavailable</h2>
-        <p>This page has been temporarily removed by an administrator.</p>
-      </div>
-    );
-  }
+  const showLiveOverride =
+    !cmsOverrideDisabled && Boolean(data?.active && data?.content?.trim());
 
-  /**
-   * Called by AdminEditBar when the editor opens.
-   * Returns the current content (saved override if it exists, otherwise the
-   * live rendered DOM HTML) so the admin can edit what's already there.
-   */
-  const getPageHTML = () => {
+  // ── Smooth-scroll to hash after CMS content loads ─────────────────────────
+  useEffect(() => {
+    if (loading || showLiveOverride) return;
+    if (location.hash !== '#community-faq-section') return;
+    const tid = window.setTimeout(() => {
+      document.getElementById('community-faq-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 150);
+    return () => window.clearTimeout(tid);
+  }, [loading, showLiveOverride, location.pathname, location.hash]);
+
+  // ── Admin helper: capture page HTML for the editor ────────────────────────
+  const getPageHTML = useCallback(() => {
     if (data?.content?.trim()) return data.content;
     if (contentRef.current) return cleanRenderedHTML(contentRef.current.innerHTML);
     return '';
-  };
+  }, [data?.content]);
+
+  if (loading) return <>{children}</>;
+
+  if (isHidden && !adminView) {
+    const target = pagePath === '/' ? '/introduction' : '/';
+    return <Navigate to={target} replace />;
+  }
 
   return (
     <>
-      {/* Admin toolbar — rendered FIRST so it appears above the page content */}
       {adminView && (
         <AdminEditBar
           pagePath={pagePath}
           pageTitle={pageTitle}
           pageData={data}
+          allowHtmlOverride={!cmsOverrideDisabled}
           onSaved={refetch}
           getPageHTML={getPageHTML}
         />
       )}
 
-      {/* Admin viewing a hidden page — warn them */}
       {isHidden && adminView && (
         <div className="pw-hidden-banner">
           <AlertTriangle size={14} />
@@ -128,19 +135,16 @@ const PageWrapper = ({ children }) => {
         </div>
       )}
 
-      {/*
-        If the admin has saved an override, it replaces the static page for
-        ALL visitors — no badge or label, content appears naturally.
-        Otherwise the original static React component renders as normal.
-      */}
-      <div ref={contentRef}>
-        {hasOverride ? (
-          <div className="pw-override__body"
-               dangerouslySetInnerHTML={{ __html: data.content }} />
-        ) : (
-          children
-        )}
+      <div hidden={showLiveOverride} style={showLiveOverride ? { display: 'none' } : undefined}>
+        <div ref={showLiveOverride ? undefined : contentRef}>{children}</div>
       </div>
+      {showLiveOverride && (
+        <div
+          ref={contentRef}
+          className="pw-override__body"
+          dangerouslySetInnerHTML={{ __html: data.content }}
+        />
+      )}
     </>
   );
 };

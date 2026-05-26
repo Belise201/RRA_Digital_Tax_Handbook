@@ -23,6 +23,13 @@ public class Notification {
     @Column(name = "page_path", length = 200)
     private String pagePath;
 
+    /**
+     * When set, this notification is only shown to that user in their inbox (not on public banners).
+     * null = visible to everyone (subject to global vs page rules).
+     */
+    @Column(name = "recipient_email", length = 200)
+    private String recipientEmail;
+
     @Column(nullable = false)
     private boolean active;
 

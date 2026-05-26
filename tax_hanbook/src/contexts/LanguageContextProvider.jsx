@@ -1,85 +1,81 @@
 import { LanguageContext } from './LanguageContext';
-import { useState, useEffect, useRef } from 'react';
-
-/** Clear the googtrans cookie so GT doesn't auto-translate a freshly-mounted tree */
-function clearGoogTransCookie() {
-  const hostname = window.location.hostname;
-  document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.' + hostname;
-  document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
-}
+import { useState, useCallback } from 'react';
 
 export const LanguageProvider = ({ children }) => {
   const [currentLanguage, setCurrentLanguage] = useState(() => {
-    return localStorage.getItem('tax-handbook-language') || 'en';
+    const stored = localStorage.getItem('tax-handbook-language');
+    const lang = stored && ['en', 'fr', 'rw'].includes(stored) ? stored : 'en';
+    // Apply the body gate synchronously on first render so GT never gets a window
+    // to auto-translate when the stored language is English.
+    if (lang === 'en') {
+      document.body.classList.add('notranslate');
+      document.body.setAttribute('translate', 'no');
+    } else {
+      document.body.classList.remove('notranslate');
+      document.body.removeAttribute('translate');
+    }
+    return lang;
   });
 
-  /**
-   * Incrementing this key forces the entire React tree (Routes + pages)
-   * to unmount and remount, which discards all Google Translate DOM
-   * modifications and renders clean English without any page reload.
-   */
-  const [remountKey, setRemountKey] = useState(0);
-
-  const gtReadyRef = useRef(false);
-
   const languages = {
-    en: { name: 'English',     flag: './images/flags/uk-flag.svg',     code: 'en' },
-    fr: { name: 'Français',    flag: './images/flags/france-flag.svg', code: 'fr' },
-    rw: { name: 'Kinyarwanda', flag: './images/flags/rwanda-flag.svg', code: 'rw' },
+    en: { name: 'English', flag: '/images/flags/uk-flag.svg', code: 'en' },
+    fr: { name: 'Français', flag: '/images/flags/france-flag.svg', code: 'fr' },
+    rw: { name: 'Kinyarwanda', flag: '/images/flags/rwanda-flag.svg', code: 'rw' },
   };
 
-  /**
-   * On mount: if the stored language is non-English, wait for Google
-   * Translate's hidden <select> to appear, then re-apply it.
-   */
-  useEffect(() => {
-    if (currentLanguage === 'en') {
+  const changeLanguage = useCallback((languageCode) => {
+    if (!languages[languageCode]) return;
+
+    if (languageCode === 'en') {
+      // Clear the googtrans cookie in all forms GT may have set it
+      const expired = '; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+      document.cookie = `googtrans=${expired}`;
+      document.cookie = `googtrans=${expired}; domain=${window.location.hostname}`;
+      document.cookie = `googtrans=${expired}; domain=.${window.location.hostname}`;
+
+      // Hard gate: prevent GT from touching any body content immediately.
+      document.body.classList.add('notranslate');
+      document.body.setAttribute('translate', 'no');
+
+      // Cancel any in-flight FR/RW retry loops and reset the combo.
+      if (typeof window.__rraSetTranslation === 'function') {
+        window.__rraSetTranslation('en');
+      }
+
+      // Update React state instantly — t() components flip to English immediately
+      setCurrentLanguage('en');
+      localStorage.setItem('tax-handbook-language', 'en');
       document.documentElement.lang = 'en';
+
+      // Signal App to remount page content so GT-modified DOM is replaced with fresh React DOM
+      window.dispatchEvent(new CustomEvent('rra-restore-english'));
       return;
     }
 
-    let attempts = 0;
-    const interval = setInterval(() => {
-      const select = document.querySelector('.goog-te-combo');
-      if (select) {
-        clearInterval(interval);
-        gtReadyRef.current = true;
-        if (typeof window.__rraSetTranslation === 'function') {
-          window.__rraSetTranslation(currentLanguage);
-        }
-      }
-      if (++attempts > 40) clearInterval(interval);
-    }, 250);
+    // Non-English: lift the body block before triggering GT.
+    document.body.classList.remove('notranslate');
+    document.body.removeAttribute('translate');
 
-    return () => clearInterval(interval);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const changeLanguage = (languageCode) => {
     setCurrentLanguage(languageCode);
     localStorage.setItem('tax-handbook-language', languageCode);
     document.documentElement.lang = languageCode;
 
-    if (languageCode === 'en') {
-      // Clear the googtrans cookie so GT doesn't auto-translate the
-      // freshly-mounted React tree, then force a full remount via key change.
-      clearGoogTransCookie();
-      setRemountKey(k => k + 1);
-      return;
-    }
+    // Set googtrans cookie so GT picks up the language after navigation
+    document.cookie = `googtrans=/en/${languageCode}; path=/`;
+    document.cookie = `googtrans=/en/${languageCode}; path=/; domain=${window.location.hostname}`;
 
-    // For French / Kinyarwanda: trigger Google Translate via the hidden select
+    // Cancel any in-flight opposite-direction retries, then apply the new language.
     if (typeof window.__rraSetTranslation === 'function') {
       window.__rraSetTranslation(languageCode);
     }
-  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const value = {
     currentLanguage,
     changeLanguage,
     languages,
     currentLanguageInfo: languages[currentLanguage] || languages.en,
-    remountKey,
   };
 
   return (

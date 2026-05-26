@@ -2,6 +2,7 @@
 @import './components/Header.css';
 @import './styles/Home.css';
 @import './styles/Pages.css';
+@import './pages/Faq.css';
 @import './styles/IncomeTax.css';
 
 * {

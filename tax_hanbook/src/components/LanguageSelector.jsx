@@ -29,7 +29,7 @@ const LanguageSelector = () => {
   };
 
   return (
-    <div className="language-selector" ref={dropdownRef}>
+    <div className="language-selector notranslate" ref={dropdownRef} translate="no">
       <button
         className="language-button"
         onClick={() => setIsOpen(!isOpen)}

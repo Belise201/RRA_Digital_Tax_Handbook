@@ -26,6 +26,19 @@ export const en = {
     wasChanged: "was changed"
   },
 
+  faqPage: {
+    title: "Frequently Asked Questions",
+    intro: "Tap a question to show the answer. Use the thumbs under each answer to say if it was helpful. Registration, VAT, PAYE and other handbook summaries use the same layout on their own pages (open them from the FAQs menu).",
+    empty: "There are no published community questions yet. Once an administrator approves entries, they will appear here.",
+    topicHeading: "Questions and answers",
+    topicBadge: "Q&A",
+    uncategorized: "General",
+    helpful: "Helpful",
+    notHelpful: "Less helpful",
+    helpfulVote: "Mark this answer as helpful",
+    notHelpfulVote: "Mark this answer as less helpful",
+  },
+
   // Navigation
   navigation: {
     home: "Home",
@@ -49,9 +62,9 @@ export const en = {
   // Home Page
   home: {
     hero: {
-      badge: "Official RRA Tax Handbook 2025",
+      badge: "Official RRA Tax Handbook 2026",
       title: "RRA Tax Handbook",
-      subtitle: "Your complete guide to Rwanda's tax system. Find everything you need to know about taxes, registration, declarations, and payments in one comprehensive resource. Updated with the latest tax laws and procedures for 2025.",
+      subtitle: "Your complete guide to Rwanda's tax system. Find everything you need to know about taxes, registration, declarations, and payments in one comprehensive resource. Updated with the latest tax laws and procedures for 2026.",
       getStarted: "Get Started",
       callCenter: "Call 3004",
       aboutRRA: "About RRA"
@@ -205,8 +218,8 @@ export const en = {
     notice: {
       title: "Important Notice",
       content: "This information is strictly for the purpose of guidance to our stakeholders and is subject to change on amendment of tax legislation and any other regulations governing tax administration. The information in this handbook is updated in the online version, as and when required.",
-      copyright: "© Rwanda Revenue Authority 2025",
-      published: "First published 2018. Second published 2025."
+      copyright: "© Rwanda Revenue Authority 2026",
+      published: "First published 2018. Second published 2026."
     },
     contact: {
       title: "Contact Information",
@@ -224,7 +237,39 @@ export const en = {
         days: "Monday - Friday",
         time: "7:30 AM - 5:00 PM"
       }
-    }
+    },
+    disclaimer: {
+      heading: "Disclaimer",
+      p1: "This information is strictly for the purpose of guidance to our stakeholders and is subject to change on amendment of tax legislation and any other regulations governing tax administration.",
+      p2: "The information in this handbook is updated in the online version, as and when required.",
+    },
+    about: {
+      heading: "About This Handbook",
+      lede: "Publication details and acknowledgements for this edition.",
+      copyright: {
+        title: "Copyright",
+        meta: "Rwanda Revenue Authority · Official handbook · 2018–2026",
+        line1: "© Rwanda Revenue Authority 2026",
+        line2: "First published 2018. All rights reserved.",
+        line3: "Second published 2026. All rights reserved.",
+      },
+      principalAuthor: {
+        title: "Principal author",
+        meta: "Tax policy · Lead authorship",
+      },
+      coAuthor: {
+        title: "Co-author (LGT chapter)",
+        meta: "Local government taxes",
+      },
+      reviewedBy: {
+        title: "Updated & reviewed by",
+        meta: "5 contributors",
+      },
+      validation: {
+        title: "Principal validation team",
+        meta: "15 specialists · Quality assurance",
+      },
+    },
   },
 
   // Common
@@ -308,7 +353,7 @@ export const en = {
       shortDocuments: "Short Documents",
       tollFree: "Toll Free (Local)",
       international: "International",
-      copyright: "© Rwanda Revenue Authority 2025\nFirst published 2018. All rights reserved.\nSecond published 2025. All rights reserved."
+      copyright: "© Rwanda Revenue Authority 2026\nFirst published 2018. All rights reserved.\nSecond published 2026. All rights reserved."
     }
   },
 
@@ -319,7 +364,7 @@ export const en = {
     localCalls: "Local Calls",
     internationalCalls: "International calls",
     sendLetter: "Send us a Letter",
-    copyright: "© Rwanda Revenue Authority 2025"
+    copyright: "© Rwanda Revenue Authority 2026"
   },
 
   // Auth modals
@@ -361,7 +406,8 @@ export const en = {
     },
     userMenu: {
       currentlyIn: "Currently in",
-      logout: "Log out"
+      logout: "Log out",
+      editProfile: "Profile"
     }
   },
 
@@ -403,6 +449,23 @@ export const en = {
       title: "Stay Updated",
       description: "Tax laws and regulations may be updated periodically. It's important to regularly check the RRA website for the most current versions of laws, ministerial orders, and rulings to ensure compliance with the latest requirements."
     }
+  },
+
+  // FAQ Submission form
+  faqSubmit: {
+    title: "Submit a new question",
+    gateText: "Sign in with your handbook account to submit a question. Submissions are reviewed by an administrator before they can appear in the FAQ.",
+    logIn: "Log in",
+    createAccount: "Create account",
+    category: "Category",
+    question: "Your question",
+    questionPlaceholder: "Type your tax handbook question here...",
+    authorName: "Your name (optional)",
+    authorEmail: "Email (optional)",
+    submit: "Submit question",
+    successMsg: "Question submitted. An admin will review it before publication.",
+    errorSignIn: "You must be signed in to submit a question.",
+    errorFailed: "Failed to submit question."
   },
 
   // VDS Page

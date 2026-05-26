@@ -1,64 +1,138 @@
 /* ============================================================
-   Admin Edit Bar  —  floating toolbar + WYSIWYG modal editor
+   Admin ribbon — same compact pill on every handbook page (matches home).
+   Fixed under header; horizontal band matches .content (App.css).
    ============================================================ */
 
-/* ── Sub-header admin toolbar ────────────────────────────────────────────────
-   Fixed just below the 80px header. Always visible while admin browses.
-   position: fixed is used because the parent .content has overflow-y: auto
-   which prevents position: sticky from working.
-   ───────────────────────────────────────────────────────────────────────── */
-.aeb-bar {
+.aeb-sticky-toolbar {
   position: fixed;
   top: 80px;
+  z-index: 2995;
+  margin: 0;
   left: 0;
-  width: 100%;
-  z-index: 2500;
-  background: #f8fafc;
-  border-bottom: 1px solid #e2e8f0;
+  right: 0;
+  min-height: 48px;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding: 6px 2rem;
-  gap: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  justify-content: flex-start;
+  padding: 4px 0.75rem;
+  background: transparent;
+  border-bottom: none;
+  box-shadow: none;
 }
 
-.aeb-bar__actions {
+@media (min-width: 1024px) {
+  .aeb-sticky-toolbar {
+    left: 280px;
+    right: 2.5rem;
+    padding: 4px 0 4px calc(2rem + 2.5rem);
+  }
+}
+
+@media (max-width: 1023px) {
+  .aeb-sticky-toolbar {
+    left: 0;
+    right: 0;
+    padding: 4px 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .aeb-sticky-toolbar {
+    padding: 4px 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .aeb-sticky-toolbar {
+    padding: 4px 0.75rem;
+  }
+}
+
+.aeb-sticky-toolbar__inner {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  width: auto;
+  max-width: 100%;
+  padding: 5px 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid #e2e8f0;
+  box-shadow:
+    0 2px 12px rgba(9, 62, 97, 0.12),
+    0 1px 0 rgba(255, 255, 255, 0.85) inset;
+  backdrop-filter: blur(8px);
+  box-sizing: border-box;
+}
+
+.aeb-sticky-toolbar__actions {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
-  flex-shrink: 0;
 }
 
-.aeb-bar__btn {
+.aeb-toolbar-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 9px 18px;
+  gap: 8px;
+  padding: 7px 12px 7px 10px;
   border-radius: 50px;
   border: none;
-  font-size: 13px;
-  font-weight: 700;
   cursor: pointer;
-  white-space: nowrap;
   font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
   letter-spacing: 0.02em;
+  white-space: nowrap;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.18);
   transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.22), 0 1px 4px rgba(0,0,0,0.14);
 }
-.aeb-bar__btn:hover  { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(0,0,0,0.28); }
-.aeb-bar__btn:active { transform: translateY(0);    box-shadow: 0 2px 8px rgba(0,0,0,0.18); }
 
-.aeb-bar__btn--edit       { background: #f59e0b; color: #1a1a1a; }
-.aeb-bar__btn--edit:hover { background: #fbbf24; }
+.aeb-toolbar-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.22);
+}
 
-.aeb-bar__btn--hide       { background: #dc2626; color: #fff; }
-.aeb-bar__btn--hide:hover { background: #b91c1c; }
+.aeb-toolbar-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
 
-.aeb-bar__btn--show       { background: #059669; color: #fff; }
-.aeb-bar__btn--show:hover { background: #047857; }
+.aeb-toolbar-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
 
-.aeb-bar__btn:disabled    { opacity: 0.55; cursor: not-allowed; transform: none; }
+.aeb-toolbar-btn--edit {
+  background: #f59e0b;
+  color: #1a1a1a;
+}
+
+.aeb-toolbar-btn--edit:hover:not(:disabled) {
+  background: #fbbf24;
+}
+
+.aeb-toolbar-btn--hide {
+  background: #dc2626;
+  color: #fff;
+}
+
+.aeb-toolbar-btn--hide:hover:not(:disabled) {
+  background: #b91c1c;
+}
+
+.aeb-toolbar-btn--show {
+  background: #059669;
+  color: #fff;
+}
+
+.aeb-toolbar-btn--show:hover:not(:disabled) {
+  background: #047857;
+}
 
 /* ── Modal overlay ──────────────────────────────────────── */
 .aeb-overlay {
@@ -105,6 +179,40 @@
   margin: 3px 0 0;
   font-size: 12px;
   color: #6b7280;
+}
+
+.aeb-field-label {
+  display: block;
+  margin: 0 22px 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #093e61;
+}
+
+.aeb-field-label__req {
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.aeb-summary-input {
+  display: block;
+  width: calc(100% - 44px);
+  margin: 0 22px 12px;
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+  line-height: 1.45;
+  resize: vertical;
+  min-height: 52px;
+  box-sizing: border-box;
+}
+
+.aeb-summary-input:focus {
+  outline: none;
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
 }
 .aeb-modal__close {
   background: none;
@@ -286,7 +394,11 @@
 
 /* ── Responsive ─────────────────────────────────────────── */
 @media (max-width: 640px) {
-  .aeb-bar { padding: 0 0.75rem; }
-  .aeb-bar__page { max-width: 120px; }
   .aeb-modal { border-radius: 0; max-height: 100vh; }
+}
+
+@media (max-width: 480px) {
+  .aeb-toolbar-btn span {
+    font-size: 12px;
+  }
 }

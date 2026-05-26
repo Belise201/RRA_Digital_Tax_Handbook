@@ -1,4 +1,20 @@
 // Search data for all pages in the tax handbook
+
+/**
+ * Normalize typed or voice queries: trim, lowercase, strip STT punctuation,
+ * remove common voice prefixes ("search for …").
+ */
+export function normalizeSearchQuery(query) {
+    if (query == null) return '';
+    let s = String(query).trim().toLowerCase();
+    s = s.replace(/^[,.;:!?\s—–-]+/u, '').replace(/[,.;:!?\s—–-]+$/u, '').trim();
+    s = s.replace(/\s+/g, ' ');
+    s = s
+        .replace(/^(?:ok\s+|hey\s+)?(?:search|find|look\s*up|lookup|show\s*me|open|go\s*to)(?:\s+for)?\s+/i, '')
+        .trim();
+    return s;
+}
+
 export const searchData = [
     // Introduction Pages
     {
@@ -16,6 +32,22 @@ export const searchData = [
         category: 'Introduction',
         content: 'The Rwanda Revenue Authority (RRA) is the government agency responsible for collecting taxes and customs duties in Rwanda. RRA plays a crucial role in financing national development through efficient tax collection.',
         keywords: ['rra', 'revenue authority', 'tax collection', 'government', 'agency', 'customs']
+    },
+    {
+        id: 'faq',
+        title: 'Submit a new question',
+        path: '/faq',
+        category: 'Help',
+        content: 'Submit a tax handbook question for admin review. Choose a category and describe your question; it may be answered and published on the relevant FAQ topic page after approval.',
+        keywords: ['faq', 'submit question', 'ask', 'help', 'community question', 'support', 'handbook']
+    },
+    {
+        id: 'profile',
+        title: 'Your account',
+        path: '/profile',
+        category: 'Account',
+        content: 'View your sign-in details and update your display name, profile photo on this device, and password.',
+        keywords: ['profile', 'account', 'password', 'name', 'settings', 'taxpayer', 'login']
     },
     {
         id: 'definitions',
@@ -286,20 +318,92 @@ export const searchData = [
         keywords: ['rental income', 'rental tax', 'property rental', 'rent tax', 'landlord tax']
     },
 
-    // Customs Pages
+    // Customs
     {
-        id: 'eis-ebms',
-        title: 'EIS/EBMs',
-        path: '/eis-ebms',
+        id: 'customs-explanation',
+        title: 'Explanation of Customs',
+        path: '/customs-explanation',
         category: 'Customs',
-        content: 'Electronic Invoicing System and Electronic Billing Machines. Understanding EIS requirements, EBM installation, and compliance procedures.',
-        keywords: ['eis', 'ebm', 'electronic invoicing', 'billing machine', 'electronic billing', 'invoice system']
+        content: 'Overview of customs in Rwanda: imports, exports, clearance, duties and compliance with Rwanda Revenue Authority customs procedures.',
+        keywords: ['customs', 'customs duties', 'imports', 'exports', 'border', 'clearance', 'declaration', 'international trade', 'rra customs']
+    },
+    {
+        id: 'custom-duties',
+        title: 'Customs Duties',
+        path: '/custom-duties',
+        category: 'Customs',
+        content: 'Customs duties on imported and exported goods, tariffs, valuation and payment of duties at the border.',
+        keywords: ['customs', 'custom duties', 'import duties', 'tariff', 'duty', 'import', 'export', 'cif', 'fob']
+    },
+    {
+        id: 'clearing-agents',
+        title: 'Clearing Agents',
+        path: '/clearing-agents',
+        category: 'Customs',
+        content: 'Licensed clearing agents, customs clearance services and working with agents for imports and exports.',
+        keywords: ['clearing agent', 'customs agent', 'clearance', 'broker', 'customs', 'import', 'export']
+    },
+    {
+        id: 'border-ports',
+        title: 'Border Posts and Dry Ports',
+        path: '/border-ports-and-dry-ports',
+        category: 'Customs',
+        content: 'Border posts, dry ports and customs control points for movement of goods into and out of Rwanda.',
+        keywords: ['border', 'dry port', 'border post', 'customs', 'port', 'cross border', 'goods']
+    },
+    {
+        id: 'declaring-imports-exports',
+        title: 'Declaring Imports and Exports',
+        path: '/declaring-imports-and-export',
+        category: 'Customs',
+        content: 'How to declare imports and exports, customs declarations and compliance for international trade.',
+        keywords: ['declare', 'import', 'export', 'customs declaration', 'customs', 'consignment', 'resw']
+    },
+    {
+        id: 'facilitation-schema',
+        title: 'Facilitation Schemes',
+        path: '/facilitation-schema',
+        category: 'Customs',
+        content: 'Customs facilitation schemes and simplified procedures for eligible traders.',
+        keywords: ['facilitation', 'customs', 'scheme', 'trade', 'preferential']
+    },
+    {
+        id: 'importing-motor-vehicle',
+        title: 'Importing Motor Vehicles',
+        path: '/importing-moto-vehicle',
+        category: 'Customs',
+        content: 'Importing motor vehicles through customs: duties, documentation and clearance requirements.',
+        keywords: ['import car', 'motor vehicle', 'vehicle import', 'customs', 'duty', 'automobile']
+    },
+    {
+        id: 'customs-penalties',
+        title: 'Customs Penalties and Fines',
+        path: '/customs-penalties',
+        category: 'Customs',
+        content: 'Penalties and fines for customs non-compliance, incorrect declarations and related offences.',
+        keywords: ['customs', 'penalty', 'fine', 'non compliance', 'sanction']
+    },
+    {
+        id: 'customs-sum',
+        title: 'Customs FAQs',
+        path: '/customs-sum',
+        category: 'Customs',
+        content: 'Frequently asked questions and answers about customs, imports and exports in the tax handbook.',
+        keywords: ['customs', 'faq', 'questions', 'import', 'export', 'border']
+    },
+    {
+        id: 'eis-explanation',
+        title: 'Electronic Invoicing System (EIS)',
+        path: '/electronic-invoicing-system-explanation',
+        category: 'VAT',
+        content: 'Electronic Invoicing System (EIS), EBMs and certified sales invoices for VAT and bookkeeping compliance.',
+        keywords: ['eis', 'ebm', 'electronic invoicing', 'billing machine', 'invoice', 'vat invoice']
     },
     {
         id: 'paying-taxes',
         title: 'Paying Taxes',
         path: '/paying-taxes',
-        category: 'Customs',
+        category: 'Paying Taxes',
         content: 'Methods and procedures for paying taxes. Understanding payment options, deadlines, and compliance requirements.',
         keywords: ['paying taxes', 'tax payment', 'payment methods', 'payment deadlines', 'tax compliance']
     },
@@ -307,7 +411,7 @@ export const searchData = [
         id: 'deregistration',
         title: 'Deregistration',
         path: '/deregistration',
-        category: 'Customs',
+        category: 'Deregistration',
         content: 'Tax deregistration procedures and requirements. Learn about when and how to deregister from tax obligations.',
         keywords: ['deregistration', 'tax deregistration', 'close business', 'stop trading', 'tax closure']
     }
@@ -315,36 +419,43 @@ export const searchData = [
 
 // Search function
 export const searchPages = (query) => {
-    if (!query || query.trim().length < 2) {
+    const searchTerm = normalizeSearchQuery(query);
+    if (searchTerm.length < 2) {
         return [];
     }
 
-    const searchTerm = query.toLowerCase().trim();
     const results = [];
 
     searchData.forEach(page => {
         let score = 0;
-        const searchableText = `${page.title} ${page.content} ${page.keywords.join(' ')}`.toLowerCase();
+        const titleLower = page.title.toLowerCase();
+        const contentLower = page.content.toLowerCase();
+        const searchableText = `${titleLower} ${contentLower} ${page.keywords.join(' ')}`.toLowerCase();
 
         // Title matches get highest score
-        if (page.title.toLowerCase().includes(searchTerm)) {
+        if (titleLower.includes(searchTerm)) {
             score += 10;
         }
 
         // Content matches get medium score
-        if (page.content.toLowerCase().includes(searchTerm)) {
+        if (contentLower.includes(searchTerm)) {
             score += 5;
         }
 
-        // Keyword matches get lower score
-        if (page.keywords.some(keyword => keyword.includes(searchTerm))) {
-            score += 3;
-        }
+        // Keyword matches (phrase in keyword, or short keyword contained in query e.g. VAT)
+        page.keywords.forEach((keyword) => {
+            const k = keyword.toLowerCase();
+            if (k.includes(searchTerm)) {
+                score += 4;
+            } else if (searchTerm.length >= 3 && k.length >= 3 && searchTerm.includes(k)) {
+                score += 2;
+            }
+        });
 
-        // Partial matches in content
-        const words = searchTerm.split(' ');
-        words.forEach(word => {
-            if (word.length > 2 && searchableText.includes(word)) {
+        // Whole-query fuzzy: every significant word hits body/title/keywords
+        const words = searchTerm.split(/\s+/).filter((w) => w.length > 2);
+        words.forEach((word) => {
+            if (searchableText.includes(word)) {
                 score += 1;
             }
         });
@@ -361,4 +472,11 @@ export const searchPages = (query) => {
         }
         return a.title.localeCompare(b.title);
     });
+};
+
+export const getAutocompleteSuggestions = (query, limit = 8) => {
+    if (!normalizeSearchQuery(query)) return [];
+    return searchPages(query)
+        .slice(0, limit)
+        .map(p => ({ id: p.id, title: p.title, path: p.path, category: p.category }));
 };

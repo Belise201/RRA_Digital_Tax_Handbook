@@ -3,98 +3,132 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="./vite.svg" />
+  <link rel="icon" type="image/png" href="/rra-icon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
-    content="RRA Tax Handbook 2025 - Complete guide to Rwanda's tax system, registration, declarations, and payments" />
+    content="RRA Tax Handbook 2026 - Complete guide to Rwanda's tax system, registration, declarations, and payments" />
   <meta name="keywords"
     content="RRA, Rwanda Revenue Authority, tax handbook, taxes, registration, VAT, income tax, customs" />
   <meta name="author" content="Rwanda Revenue Authority" />
-  <title>RRA Tax Handbook 2025 - Rwanda Revenue Authority</title>
+  <title>RRA Tax Handbook 2026 - Rwanda Revenue Authority</title>
 
-  <!-- Google Translate — hidden widget, driven by our language selector -->
-  <style>
-    /* Hide all Google Translate UI chrome — our language selector drives it */
-    .goog-te-banner-frame,
-    #goog-te-banner-frame,
-    .goog-te-gadget,
-    .goog-te-gadget-simple,
-    .goog-te-menu-frame {
-      display: none !important;
+  <!-- Google Translate: define callback + helpers before the script loads -->
+  <script>
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        { pageLanguage: 'en', includedLanguages: 'fr,rw', autoDisplay: false },
+        'google_translate_element'
+      );
     }
 
-    /* Prevent Google Translate from pushing the page down */
+    var __rraGTCombo = null;
+    // Sequence counter: incrementing it cancels any in-flight retry loop from an older call.
+    var __rraSeq = 0;
+
+    window.__rraSetTranslation = function (lang) {
+      var mySeq = ++__rraSeq;
+
+      if (!lang || lang === 'en') {
+        // English / reset mode: cancel pending retries, restore original.
+        var resetTries = 0;
+        (function doReset() {
+          if (mySeq !== __rraSeq) return; // a newer call took over — abort
+          var select = __rraGTCombo || document.querySelector('.goog-te-combo');
+          if (select) {
+            __rraGTCombo = select;
+            if (select.value) {
+              select.value = '';
+              select.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+          } else if (++resetTries < 40) {
+            setTimeout(doReset, 50);
+          }
+        })();
+        return;
+      }
+
+      // Non-English: apply translation, retrying until the GT widget is ready.
+      var tries = 0;
+      (function attempt() {
+        if (mySeq !== __rraSeq) return; // cancelled by a newer call
+        var select = __rraGTCombo || document.querySelector('.goog-te-combo');
+        if (select) {
+          __rraGTCombo = select;
+          select.value = lang;
+          select.dispatchEvent(new Event('change', { bubbles: true }));
+        } else if (++tries < 80) {
+          setTimeout(attempt, 50);
+        }
+      })();
+    };
+  </script>
+  <!-- Load GT async so it starts downloading immediately, in parallel with page render -->
+  <script async src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <style>
+    html {
+      background: linear-gradient(135deg, #093e61 0%, #0c5a8a 100%);
+    }
     body {
-      top: 0px !important;
+      background: white;
+      /* Override Google Translate's body.top push-down */
+      top: 0 !important;
       position: static !important;
     }
 
-    /* Remove Google Translate text highlights / underlines */
+    /* ── Hide every Google Translate UI element ── */
+    #goog-te-banner-frame,
+    .goog-te-banner-frame,
+    .goog-te-gadget,
+    .goog-te-gadget-simple,
+    .goog-te-gadget-icon,
+    .goog-te-menu-frame,
+    .goog-te-balloon-frame,
+    .goog-tooltip,
+    .goog-tooltip:hover,
+    .goog-te-ftab-float,
+    #google_translate_element,
+    iframe.skiptranslate,
+    body > .skiptranslate {
+      display: none !important;
+      visibility: hidden !important;
+    }
     .goog-text-highlight {
       background-color: transparent !important;
       box-shadow: none !important;
-    }
-
-    /* Keep font sizes intact after translation */
-    font[size] {
-      font-size: inherit !important;
     }
   </style>
 </head>
 
 <body>
-  <!-- Hidden Google Translate mount point -->
-  <div id="google_translate_element" style="display:none;visibility:hidden;"></div>
-
+  <div id="google_translate_element"></div>
   <div id="root"></div>
-  <script type="module" src="./src/main.jsx"></script>
 
-  <!-- Google Translate element initialiser -->
-  <script type="text/javascript">
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement(
-        {
-          pageLanguage: 'en',
-          includedLanguages: 'en,fr,rw',
-          layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-          autoDisplay: false,
-          gaTrack: false
-        },
-        'google_translate_element'
-      );
-    }
-
-    /**
-     * Apply a Google Translate language without showing its UI.
-     * Called by LanguageContextProvider whenever the user picks fr or rw.
-     * Switching back to English is handled entirely in React (remountKey)
-     * so this function is only ever called for non-English languages now.
-     */
-    window.__rraSetTranslation = function (langCode) {
-      // Translate to the requested language via Google Translate's hidden select.
-      var attempt = 0;
-      function tryTranslate() {
-        var select = document.querySelector('.goog-te-combo');
-        if (!select) {
-          if (attempt < 25) {
-            attempt++;
-            setTimeout(tryTranslate, 250);
-          }
-          return;
+  <script>
+    /* Aggressively suppress the GT top-bar: watch for it and hide immediately */
+    (function () {
+      function suppress() {
+        var frame = document.getElementById('goog-te-banner-frame') ||
+                    document.querySelector('iframe.goog-te-banner-frame') ||
+                    document.querySelector('iframe.skiptranslate');
+        if (frame) {
+          frame.style.setProperty('display', 'none', 'important');
+          frame.style.setProperty('visibility', 'hidden', 'important');
         }
-        select.value = langCode;
-        var evt = document.createEvent('HTMLEvents');
-        evt.initEvent('change', true, true);
-        select.dispatchEvent(evt);
+        if (document.body && document.body.style.top && document.body.style.top !== '0px') {
+          document.body.style.setProperty('top', '0px', 'important');
+        }
       }
-      tryTranslate();
-    };
+      var obs = new MutationObserver(suppress);
+      document.addEventListener('DOMContentLoaded', function () {
+        obs.observe(document.body, { childList: true, subtree: false, attributes: true, attributeFilter: ['style'] });
+        suppress();
+      });
+      window.addEventListener('load', suppress);
+    })();
   </script>
 
-  <!-- Load the Google Translate widget script -->
-  <script type="text/javascript"
-    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-    async defer></script>
+  <script type="module" src="./src/main.jsx"></script>
 </body>
 
 </html>

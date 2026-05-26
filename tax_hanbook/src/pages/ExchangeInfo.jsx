@@ -20,6 +20,7 @@ const ExchangeInfo = () => {
             <div className="page-content">
                 {/* Overview Section */}
                 <section className="content-section">
+                    <h2>Overview</h2>
                     <p className="content-paragraph">
                         In 2017, Rwanda joined the international crusade against tax evasion and fraud by becoming a member of Global Forum on Transparency and Exchange of Information for Tax purposes and acceded to the convention on Mutual Administrative Assistance in Tax Matters as amended by the 2010 Protocol on 11 August 2021. This section discusses the Exchange of Information on Request (EOIR) and Automatic Exchange of Information (AEOI).
                     </p>
@@ -72,7 +73,7 @@ const ExchangeInfo = () => {
                         It is a country commitment to implementing the Automatic Exchange of Information (AEOI) standard under the OECD's Common Reporting Standard (CRS). This allows for the annual automatic exchange of financial account information between jurisdictions.
                     </p>
                     <p className="content-paragraph">
-                        All financial institutions in Rwanda must report information on financial accounts held by non-residents through the AEOI portal, not later than 30 April each year. The first data exchange is scheduled for September 2025.
+                        All financial institutions in Rwanda must report information on financial accounts held by non-residents through the AEOI portal, not later than 30 April each year. The first data exchange is scheduled for September 2026.
                     </p>
                 </section>
 

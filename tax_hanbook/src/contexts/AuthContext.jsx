@@ -10,10 +10,31 @@ export const AuthProvider = ({ children }) => {
 
   // Restore session from localStorage on mount
   useEffect(() => {
+    // Check if we should start fresh (no auto-login)
+    const urlParams = new URLSearchParams(window.location.search);
+    const startFresh = urlParams.get('fresh') === 'true';
+    
+    if (startFresh) {
+      // Clear any existing session
+      localStorage.removeItem('rra_user');
+      setUser(null);
+      setLoading(false);
+      // Remove the query parameter from URL
+      window.history.replaceState({}, '', window.location.pathname);
+      return;
+    }
+
     const stored = localStorage.getItem('rra_user');
     if (stored) {
       try {
-        setUser(JSON.parse(stored));
+        const userData = JSON.parse(stored);
+        // Only restore if token exists and is valid
+        if (userData && userData.token) {
+          setUser(userData);
+        } else {
+          // Invalid user data, clear it
+          localStorage.removeItem('rra_user');
+        }
       } catch {
         localStorage.removeItem('rra_user');
       }
@@ -76,12 +97,61 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('rra_user');
   }, []);
 
+  // Update name fields — PATCH /api/users/profile
+  const updateProfile = useCallback(async (firstName, lastName) => {
+    let res;
+    try {
+      res = await fetch(
+        `${import.meta.env.VITE_API_ROOT_URL || 'http://localhost:8080'}/api/users/profile`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${user?.token}`,
+          },
+          body: JSON.stringify({ firstName, lastName }),
+        }
+      );
+    } catch {
+      throw new Error('Cannot reach backend. Please try again.');
+    }
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || 'Profile update failed');
+    const updated = { ...user, firstName: data.firstName ?? firstName, lastName: data.lastName ?? lastName };
+    setUser(updated);
+    localStorage.setItem('rra_user', JSON.stringify(updated));
+    return updated;
+  }, [user]);
+
+  // Change password — PATCH /api/users/password
+  const updatePassword = useCallback(async (currentPassword, newPassword) => {
+    let res;
+    try {
+      res = await fetch(
+        `${import.meta.env.VITE_API_ROOT_URL || 'http://localhost:8080'}/api/users/password`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${user?.token}`,
+          },
+          body: JSON.stringify({ currentPassword, newPassword }),
+        }
+      );
+    } catch {
+      throw new Error('Cannot reach backend. Please try again.');
+    }
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || 'Password change failed');
+    return true;
+  }, [user]);
+
   const isAdmin    = useCallback(() => user?.role === 'ADMIN', [user]);
   const isTaxpayer = useCallback(() => user?.role === 'TAXPAYER', [user]);
   const isLoggedIn = useCallback(() => !!user, [user]);
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, isAdmin, isTaxpayer, isLoggedIn }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout, updateProfile, updatePassword, isAdmin, isTaxpayer, isLoggedIn }}>
       {children}
     </AuthContext.Provider>
   );

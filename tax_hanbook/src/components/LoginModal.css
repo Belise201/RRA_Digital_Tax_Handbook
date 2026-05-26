@@ -34,8 +34,77 @@
   overflow: hidden;
 }
 
+/* Sign-up: compact card, fits viewport without filling edge-to-edge */
 .auth-modal--signup {
-  max-width: 480px;
+  max-width: 420px;
+  max-height: min(90vh, 620px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.auth-modal--signup .auth-modal-header {
+  padding: 0.85rem 1rem 0.7rem;
+  flex-shrink: 0;
+}
+
+.auth-modal-logo--signup {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-modal-logo-img--signup {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  max-height: 52px;
+  object-fit: contain;
+}
+
+.auth-modal--signup .auth-role-notice {
+  padding: 0.45rem 1rem;
+  flex-shrink: 0;
+  font-size: 0.74rem;
+}
+
+.auth-modal--signup .auth-error {
+  margin: 0 1rem;
+  flex-shrink: 0;
+}
+
+.auth-modal--signup .auth-form--signup {
+  padding: 0.75rem 1.15rem 0.55rem;
+  gap: 0.65rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.auth-modal--signup .auth-label {
+  font-size: 0.78rem;
+}
+
+.auth-modal--signup .auth-input {
+  padding: 0.52rem 0.75rem 0.52rem 2.2rem;
+  font-size: 0.8125rem;
+}
+
+.auth-modal--signup .auth-field-row {
+  gap: 0.55rem;
+}
+
+.auth-modal--signup .auth-submit-btn {
+  padding: 0.65rem;
+  margin-top: 0.1rem;
+  font-size: 0.875rem;
+}
+
+.auth-modal--signup .auth-switch-text {
+  padding: 0.55rem 1.15rem 0.75rem;
+  flex-shrink: 0;
+  font-size: 0.78rem;
 }
 
 @keyframes modalSlideIn {
@@ -303,15 +372,6 @@
   cursor: not-allowed;
 }
 
-.auth-submit-btn--signup {
-  background: linear-gradient(135deg, #065f46, #059669);
-  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3);
-}
-
-.auth-submit-btn--signup:hover:not(:disabled) {
-  box-shadow: 0 6px 18px rgba(5, 150, 105, 0.4);
-}
-
 /* Spinner */
 .auth-spinner {
   width: 18px;
@@ -356,9 +416,8 @@
 
 /* Responsive */
 @media (max-width: 480px) {
-  .auth-modal {
-    border-radius: 12px;
-    max-width: 100%;
+  .auth-modal--signup {
+    max-height: min(88vh, 100%);
   }
 
   .auth-modal-header {

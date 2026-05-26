@@ -26,6 +26,19 @@ export const fr = {
     wasChanged: "a été modifiée"
   },
 
+  faqPage: {
+    title: "Foire aux questions",
+    intro: "Touchez une question pour afficher la réponse. Utilisez les pouces pour indiquer si elle vous a aidé. Les pages récapitulatives (enregistrement, TVA, PAYE, etc.) utilisent la même présentation depuis le menu FAQ.",
+    empty: "Aucune question communautaire publiée pour l'instant.",
+    topicHeading: "Questions et réponses",
+    topicBadge: "FAQ",
+    uncategorized: "Général",
+    helpful: "Utile",
+    notHelpful: "Peu utile",
+    helpfulVote: "Marquer cette réponse comme utile",
+    notHelpfulVote: "Marquer cette réponse comme peu utile",
+  },
+
   // Navigation
   navigation: {
     home: "Accueil",
@@ -49,9 +62,9 @@ export const fr = {
   // Home Page
   home: {
     hero: {
-      badge: "Manuel Fiscal Officiel RRA 2025",
+      badge: "Manuel Fiscal Officiel RRA 2026",
       title: "Manuel Fiscal RRA",
-      subtitle: "Votre guide complet du système fiscal rwandais. Trouvez tout ce que vous devez savoir sur les taxes, l'enregistrement, les déclarations et les paiements dans une ressource complète. Mis à jour avec les dernières lois et procédures fiscales pour 2025.",
+      subtitle: "Votre guide complet du système fiscal rwandais. Trouvez tout ce que vous devez savoir sur les taxes, l'enregistrement, les déclarations et les paiements dans une ressource complète. Mis à jour avec les dernières lois et procédures fiscales pour 2026.",
       getStarted: "Commencer",
       callCenter: "Appeler 3004",
       aboutRRA: "À propos de RRA"
@@ -205,8 +218,8 @@ export const fr = {
     notice: {
       title: "Avis Important",
       content: "Ces informations sont strictement destinées à l'orientation de nos parties prenantes et sont susceptibles de changer lors de l'amendement de la législation fiscale et de toute autre réglementation régissant l'administration fiscale. Les informations de ce manuel sont mises à jour dans la version en ligne, selon les besoins.",
-      copyright: "© Autorité Rwandaise des Recettes 2025",
-      published: "Première publication 2018. Deuxième publication 2025."
+      copyright: "© Autorité Rwandaise des Recettes 2026",
+      published: "Première publication 2018. Deuxième publication 2026."
     },
     contact: {
       title: "Informations de Contact",
@@ -223,7 +236,39 @@ export const fr = {
         days: "Lundi - Vendredi",
         time: "7h30 - 17h00"
       }
-    }
+    },
+    disclaimer: {
+      heading: "Avertissement",
+      p1: "Ces informations sont strictement destinées à guider nos parties prenantes et sont susceptibles de changer en cas de modification de la législation fiscale et de toute autre réglementation régissant l'administration fiscale.",
+      p2: "Les informations contenues dans ce manuel sont mises à jour dans la version en ligne, au fur et à mesure des besoins.",
+    },
+    about: {
+      heading: "À propos de ce manuel",
+      lede: "Détails de publication et remerciements pour cette édition.",
+      copyright: {
+        title: "Droits d'auteur",
+        meta: "Rwanda Revenue Authority · Manuel officiel · 2018–2026",
+        line1: "© Rwanda Revenue Authority 2026",
+        line2: "Première publication 2018. Tous droits réservés.",
+        line3: "Deuxième publication 2026. Tous droits réservés.",
+      },
+      principalAuthor: {
+        title: "Auteur principal",
+        meta: "Politique fiscale · Rédaction principale",
+      },
+      coAuthor: {
+        title: "Co-auteur (chapitre LGT)",
+        meta: "Taxes des collectivités locales",
+      },
+      reviewedBy: {
+        title: "Mis à jour et révisé par",
+        meta: "5 contributeurs",
+      },
+      validation: {
+        title: "Équipe de validation principale",
+        meta: "15 spécialistes · Assurance qualité",
+      },
+    },
   },
 
   // Common
@@ -307,7 +352,7 @@ export const fr = {
       shortDocuments: "Documents Courts",
       tollFree: "Numéro Vert (Local)",
       international: "International",
-      copyright: "© Autorité Rwandaise des Recettes 2025\nPremière publication 2018. Tous droits réservés.\nDeuxième publication 2025. Tous droits réservés."
+      copyright: "© Autorité Rwandaise des Recettes 2026\nPremière publication 2018. Tous droits réservés.\nDeuxième publication 2026. Tous droits réservés."
     }
   },
 
@@ -318,7 +363,7 @@ export const fr = {
     localCalls: "Appels Locaux",
     internationalCalls: "Appels Internationaux",
     sendLetter: "Nous Envoyer une Lettre",
-    copyright: "© Autorité Rwandaise des Recettes 2025"
+    copyright: "© Autorité Rwandaise des Recettes 2026"
   },
 
   // Auth modals
@@ -360,7 +405,8 @@ export const fr = {
     },
     userMenu: {
       currentlyIn: "Actuellement dans",
-      logout: "Se déconnecter"
+      logout: "Se déconnecter",
+      editProfile: "Profil"
     }
   },
 
@@ -402,6 +448,23 @@ export const fr = {
       title: "Restez Informé",
       description: "Les lois et réglementations fiscales peuvent être mises à jour périodiquement. Il est important de vérifier régulièrement le site web de la RRA pour les versions les plus récentes des lois, arrêtés ministériels et décisions afin d'assurer la conformité avec les exigences les plus récentes."
     }
+  },
+
+  // FAQ Submission form
+  faqSubmit: {
+    title: "Soumettre une nouvelle question",
+    gateText: "Connectez-vous à votre compte du manuel fiscal pour soumettre une question. Les soumissions sont examinées par un administrateur avant d'apparaître dans la FAQ.",
+    logIn: "Se connecter",
+    createAccount: "Créer un compte",
+    category: "Catégorie",
+    question: "Votre question",
+    questionPlaceholder: "Tapez votre question sur le manuel fiscal ici...",
+    authorName: "Votre nom (facultatif)",
+    authorEmail: "E-mail (facultatif)",
+    submit: "Soumettre la question",
+    successMsg: "Question soumise. Un administrateur la vérifiera avant la publication.",
+    errorSignIn: "Vous devez être connecté pour soumettre une question.",
+    errorFailed: "Échec de la soumission de la question."
   },
 
   // VDS Page

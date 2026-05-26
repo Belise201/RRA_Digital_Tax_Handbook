@@ -1,8 +1,13 @@
-import { ExternalLink, FileText, Scale } from 'lucide-react';
+import { Scale } from 'lucide-react';
+import { useLanguage } from '../hooks/useLanguage';
+import { useTranslations } from '../translations';
 
 const LawsRulings = () => {
+  const { currentLanguage } = useLanguage();
+  const { t } = useTranslations(currentLanguage);
+
   return (
-    <div className="page-container">
+    <div className="page-container notranslate" translate="no">
       <div className="professional-header">
         <div className="professional-header-content">
           <div className="professional-title-container">
@@ -10,7 +15,7 @@ const LawsRulings = () => {
               <Scale size={24} />
             </div>
             <div className="professional-title-text">
-              <h1 className="professional-main-title">Laws, Ministerial Orders and Rulings</h1>
+              <h1 className="professional-main-title">{t('lawsRulings.title')}</h1>
               <div className="professional-title-divider"></div>
             </div>
           </div>
@@ -19,15 +24,17 @@ const LawsRulings = () => {
 
       <div className="page-content">
         <section className="content-section">
-          <h2>Where are the laws, ministerial orders and rulings governing tax administration published?</h2>
+          <h2>{t('lawsRulings.wherePublished.title')}</h2>
           <p className="content-paragraph">
-            All laws, ministerial orders, Commissioner General (CG) rulings, public rulings and ruling cases governing tax administration are available on the RRA website at:
+            {t('lawsRulings.wherePublished.description')}
           </p>
           <p className="content-paragraph">
             <a
               href="https://www.rra.gov.rw/en/laws-policies-and-rulings"
               target="_blank"
               rel="noopener noreferrer"
+              className="notranslate"
+              translate="no"
               style={{ color: 'var(--primary)', textDecoration: 'underline' }}
             >
               https://www.rra.gov.rw/en/laws-policies-and-rulings
@@ -36,20 +43,32 @@ const LawsRulings = () => {
         </section>
 
         <section className="content-section">
-          <h2>How can taxpayers ask for rulings if anything is unclear?</h2>
+          <h2>{t('lawsRulings.howToRequest.title')}</h2>
           <p className="content-paragraph">
-            If there are any aspects that are unclear, or not covered, by the existing laws, ministerial orders or previous rulings then taxpayers may ask for an official clarification or ruling to be made by RRA.
+            {t('lawsRulings.howToRequest.description')}
           </p>
+        </section>
+
+        <section className="content-section">
+          <h2>{t('lawsRulings.process.title')}</h2>
           <p className="content-paragraph">
-            In order to request a ruling, taxpayers must write a letter addressed to the Commissioner General of RRA. This letter should:
+            {t('lawsRulings.process.description')}
           </p>
           <ul className="content-list">
-            <li>Identify the taxpayer's name and TIN.</li>
-            <li>Identify the relevant sections of laws, ministerial orders or previous rulings.</li>
-            <li>State the reason(s) that a ruling is required.</li>
+            <li>{t('lawsRulings.process.requirement1')}</li>
+            <li>{t('lawsRulings.process.requirement2')}</li>
+            <li>{t('lawsRulings.process.requirement3')}</li>
           </ul>
           <p className="content-paragraph">
-            RRA will consider the request and inform the taxpayer of the official ruling directly. In the event that the ruling is considered to be useful to taxpayers more generally, this will also be published as an official ruling on the RRA website on the link above.
+            <strong>{t('lawsRulings.process.note')}</strong>{' '}
+            {t('lawsRulings.process.noteText')}
+          </p>
+        </section>
+
+        <section className="content-section">
+          <h2>{t('lawsRulings.stayUpdated.title')}</h2>
+          <p className="content-paragraph">
+            {t('lawsRulings.stayUpdated.description')}
           </p>
         </section>
       </div>

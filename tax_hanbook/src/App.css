@@ -7,22 +7,11 @@
   position: relative;
 }
 
-/* When admin is viewing a handbook page, push content below the fixed toolbar */
-.app.admin-viewing .main-container {
-  margin-top: 116px; /* 80px header + 36px admin toolbar */
+/* Push all page content below the fixed admin toolbar (48px tall at top:80px) */
+.admin-viewing main.content {
+  padding-top: 56px;
 }
 
-@media (max-width: 1023px) {
-  .app.admin-viewing .main-container {
-    margin-top: 116px;
-  }
-}
-
-@media (max-width: 480px) {
-  .app.admin-viewing .main-container {
-    margin-top: 116px;
-  }
-}
 
 .main-container {
   display: flex;
@@ -36,7 +25,7 @@
 
 .content {
   flex: 1;
-  padding: 2.5rem;
+  padding: 0 2.5rem 2.5rem;
   overflow-y: auto;
   background-color: var(--surface);
   min-height: calc(100vh - 80px);
@@ -46,6 +35,8 @@
   position: relative;
   z-index: 1;
   background: white;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 }
 
 /* Desktop Layout - Sidebar visible */
@@ -58,8 +49,7 @@
 
   .content {
     margin-left: 2rem;
-    /* Additional spacing from sidebar */
-    padding: 2.5rem;
+    padding: 0 2.5rem 2.5rem;
     width: calc(100% - 2rem);
   }
 }
@@ -73,7 +63,7 @@
   }
 
   .content {
-    padding: 1.5rem;
+    padding: 0 1.5rem 1.5rem;
     margin-left: 0;
     width: 100%;
     min-height: calc(100vh - 80px);
@@ -83,7 +73,7 @@
 /* Mobile Layout */
 @media (max-width: 768px) {
   .content {
-    padding: 1rem;
+    padding: 0 1rem 1rem;
   }
 }
 
@@ -96,7 +86,7 @@
   }
 
   .content {
-    padding: 0.75rem;
+    padding: 0 0.75rem 0.75rem;
     margin-top: 0;
     width: 100%;
   }
@@ -4148,3 +4138,23 @@
   display: flex; align-items: center;
 }
 .notif-banner-close:hover { color: #fff; background: rgba(255,255,255,0.15); }
+
+/* Route lazy-load placeholder — keeps layout stable while a page chunk loads */
+.route-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+  padding: 2rem;
+}
+.route-loading-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(0, 91, 45, 0.15);
+  border-top-color: #005B2D;
+  border-radius: 50%;
+  animation: route-spin 0.65s linear infinite;
+}
+@keyframes route-spin {
+  to { transform: rotate(360deg); }
+}

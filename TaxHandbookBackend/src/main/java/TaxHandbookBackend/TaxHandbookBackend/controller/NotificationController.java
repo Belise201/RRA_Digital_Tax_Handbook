@@ -3,7 +3,10 @@ package TaxHandbookBackend.TaxHandbookBackend.controller;
 import TaxHandbookBackend.TaxHandbookBackend.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/notifications")
@@ -21,9 +24,29 @@ public class NotificationController {
         return ResponseEntity.ok(notificationService.getGlobalActiveNotifications());
     }
 
-    /** Returns all active notifications (global + every page-specific) */
+    /**
+     * Broadcast-only list (no per-user rows). Kept for backwards compatibility;
+     * signed-in taxpayers should prefer {@code /inbox} with a Bearer token.
+     */
     @GetMapping("/all-active")
     public ResponseEntity<?> getAllActive() {
         return ResponseEntity.ok(notificationService.getActiveNotifications());
+    }
+
+    /**
+     * Taxpayer bell: broadcast notifications plus any targeted to this user's email.
+     * Pass {@code Authorization: Bearer &lt;jwt&gt;}. Returns empty list if not authenticated.
+     */
+    @GetMapping("/inbox")
+    public ResponseEntity<?> getInbox(Authentication auth) {
+        if (auth == null || !auth.isAuthenticated()) {
+            return ResponseEntity.ok(List.of());
+        }
+        Object principal = auth.getPrincipal();
+        if (principal == null || "anonymousUser".equals(principal)) {
+            return ResponseEntity.ok(List.of());
+        }
+        String email = principal.toString();
+        return ResponseEntity.ok(notificationService.getInboxForUser(email));
     }
 }

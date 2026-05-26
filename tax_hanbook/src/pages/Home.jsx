@@ -3,12 +3,38 @@ import { ArrowRight, Phone, Globe, Clock, Award } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage';
 import { useTranslations } from '../translations';
 
+const HANDBOOK_REVIEWERS = [
+  'Naphtal Hakizimana',
+  'Victor Uwayezu',
+  'Claudien Uzabakiliho',
+  'Marc Nshimiye',
+  'Eraste Hitiyaremye',
+];
+
+const HANDBOOK_VALIDATION_TEAM = [
+  'Agnes Kanyangeyo',
+  'Drocelle Mukashyaka',
+  'William Musoni',
+  'Denis Mukama',
+  'Victor Uwayezu',
+  'Consolé Munyankindi',
+  'Gerard Abiyingoma',
+  'Jeanne Mujawayezu',
+  'Harshil Parekh',
+  'Aline Shumbusho',
+  'Claude Kagaba',
+  'Egide Musafiri',
+  'Ernest Karasira',
+  'Kieran Byrne',
+  'Assumpta Mukabaranga',
+];
+
 const Home = () => {
   const { currentLanguage } = useLanguage();
   const { t } = useTranslations(currentLanguage);
 
   return (
-    <div className="home-page">
+    <div className="home-page notranslate" translate="no">
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">
@@ -27,7 +53,7 @@ const Home = () => {
               {t('home.hero.getStarted')}
               <ArrowRight size={14} />
             </Link>
-            <a href="tel:3004" className="btn btn-secondary">
+            <a href="tel:3004" className="btn btn-secondary notranslate" translate="no">
               <Phone size={14} />
               {t('home.hero.callCenter')}
             </a>
@@ -40,138 +66,87 @@ const Home = () => {
             <div className="stat-label">{t('home.stats.taxTypes')}</div>
           </div>
           <div className="stat-item">
-            <div className="stat-number">2025</div>
+            <div className="stat-number">2026</div>
             <div className="stat-label">{t('home.stats.updated')}</div>
           </div>
         </div>
       </section>
 
-      {/* Disclaimer Section */}
-      <section className="disclaimer-section" style={{
-        background: 'white',
-        borderRadius: '0.75rem',
-        padding: '2rem',
-        marginBottom: '2.5rem',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
-        border: '1px solid var(--border)'
-      }}>
-        <h2 style={{
-          fontSize: '1.5rem',
-          fontWeight: 700,
-          marginBottom: '1.5rem',
-          color: '#093e61',
-          textAlign: 'center'
-        }}>Disclaimer</h2>
-        <div style={{
-          color: 'var(--text-secondary)',
-          lineHeight: '1.8',
-          fontSize: '0.9375rem',
-          marginBottom: '1.5rem'
-        }}>
-          <p style={{ marginBottom: '1rem' }}>
-            This information is strictly for the purpose of guidance to our stakeholders and is subject to change on amendment of tax legislation and any other regulations governing tax administration.
-          </p>
-          <p style={{ marginBottom: '1rem' }}>
-            The information in this handbook is updated in the online version, as and when required.
-          </p>
-        </div>
-
-        <div style={{
-          borderTop: '1px solid var(--border)',
-          paddingTop: '1.5rem',
-          marginTop: '1.5rem'
-        }}>
-          <p style={{
-            color: 'var(--text-primary)',
-            fontWeight: 600,
-            marginBottom: '0.75rem',
-            fontSize: '0.9375rem'
-          }}>
-            © Rwanda Revenue Authority 2025
-          </p>
-          <p style={{
-            color: 'var(--text-secondary)',
-            marginBottom: '0.5rem',
-            fontSize: '0.875rem'
-          }}>
-            First published 2018. All rights reserved.
-          </p>
-          <p style={{
-            color: 'var(--text-secondary)',
-            marginBottom: '1.5rem',
-            fontSize: '0.875rem'
-          }}>
-            Second published 2025. All rights reserved.
-          </p>
-        </div>
-
-        <div style={{
-          borderTop: '1px solid var(--border)',
-          paddingTop: '1.5rem',
-          marginTop: '1.5rem'
-        }}>
-          <p style={{
-            color: 'var(--text-primary)',
-            fontWeight: 600,
-            marginBottom: '0.75rem',
-            fontSize: '0.9375rem'
-          }}>
-            Principal Author: Alasdair Mackintosh, Tax Policy Advisor
-          </p>
-          <p style={{
-            color: 'var(--text-secondary)',
-            marginBottom: '1.5rem',
-            fontSize: '0.875rem'
-          }}>
-            Co-Author of the Local Government Taxes and Fees Chapter: Dr. Christopher Nell
-          </p>
-        </div>
-
-        <div style={{
-          borderTop: '1px solid var(--border)',
-          paddingTop: '1.5rem',
-          marginTop: '1.5rem'
-        }}>
-          <p style={{
-            color: 'var(--text-primary)',
-            fontWeight: 600,
-            marginBottom: '0.75rem',
-            fontSize: '0.9375rem'
-          }}>
-            Principal Validation Team:
-          </p>
-          <p style={{
-            color: 'var(--text-secondary)',
-            marginBottom: '1.5rem',
-            fontSize: '0.875rem',
-            lineHeight: '1.6'
-          }}>
-            Agnes Kanyangeyo, Drocelle Mukashyaka, William Musoni, Denis Mukama, Victor Uwayezu, Consolé Munyankindi, Gerard Abiyingoma, Jeanne Mujawayezu, Harshil Parekh, Aline Shumbusho, Claude Kagaba, Egide Musafiri, Ernest Karasira, Kieran Byrne and Assumpta Mukabaranga.
-          </p>
-        </div>
-
-        <div style={{
-          borderTop: '1px solid var(--border)',
-          paddingTop: '1.5rem',
-          marginTop: '1.5rem'
-        }}>
-          <p style={{
-            color: 'var(--text-primary)',
-            fontWeight: 600,
-            marginBottom: '0.75rem',
-            fontSize: '0.9375rem'
-          }}>
-            Updated and reviewed by:
-          </p>
-          <p style={{
-            color: 'var(--text-secondary)',
-            fontSize: '0.875rem',
-            lineHeight: '1.6'
-          }}>
-            Naphtal Hakizimana, Victor Uwayezu, Claudien Uzabakiliho, Marc Nshimiye, and Eraste Hitiyaremye.
-          </p>
-        </div>
+      {/* Disclaimer */}
+      <section className="home-plain-section" aria-labelledby="home-disclaimer-heading">
+        <h2 id="home-disclaimer-heading">{t('home.disclaimer.heading')}</h2>
+        <p>{t('home.disclaimer.p1')}</p>
+        <p>{t('home.disclaimer.p2')}</p>
       </section>
+
+      {/* About this handbook — vertical timeline (credits) */}
+      <section
+        className="home-plain-section home-about-handbook"
+        aria-labelledby="home-about-heading"
+      >
+        <h2 id="home-about-heading">{t('home.about.heading')}</h2>
+        <p className="home-about-lede">{t('home.about.lede')}</p>
+
+        <ul className="home-about-timeline">
+          <li className="home-about-timeline-item">
+            <div className="home-about-timeline-inner">
+              <h3 className="home-about-timeline-title">{t('home.about.copyright.title')}</h3>
+              <p className="home-about-timeline-meta">{t('home.about.copyright.meta')}</p>
+              <ul className="home-about-meta-list home-about-timeline-body">
+                <li>{t('home.about.copyright.line1')}</li>
+                <li>{t('home.about.copyright.line2')}</li>
+                <li>{t('home.about.copyright.line3')}</li>
+              </ul>
+            </div>
+          </li>
+
+          <li className="home-about-timeline-item">
+            <div className="home-about-timeline-inner">
+              <h3 className="home-about-timeline-title">{t('home.about.principalAuthor.title')}</h3>
+              <p className="home-about-timeline-meta">{t('home.about.principalAuthor.meta')}</p>
+              <p className="home-about-timeline-body home-about-timeline-body--text">
+                Alasdair Mackintosh, Tax Policy Advisor
+              </p>
+            </div>
+          </li>
+
+          <li className="home-about-timeline-item">
+            <div className="home-about-timeline-inner">
+              <h3 className="home-about-timeline-title">{t('home.about.coAuthor.title')}</h3>
+              <p className="home-about-timeline-meta">{t('home.about.coAuthor.meta')}</p>
+              <p className="home-about-timeline-body home-about-timeline-body--text">
+                Dr. Christopher Nell
+              </p>
+            </div>
+          </li>
+
+          <li className="home-about-timeline-item">
+            <div className="home-about-timeline-inner">
+              <h3 className="home-about-timeline-title">{t('home.about.reviewedBy.title')}</h3>
+              <p className="home-about-timeline-meta">{t('home.about.reviewedBy.meta')}</p>
+              <ul className="home-about-name-grid home-about-name-grid--sm home-about-timeline-body">
+                {HANDBOOK_REVIEWERS.map((name) => (
+                  <li key={name}>{name}</li>
+                ))}
+              </ul>
+            </div>
+          </li>
+
+          <li className="home-about-timeline-item">
+            <div className="home-about-timeline-inner">
+              <h3 className="home-about-timeline-title">{t('home.about.validation.title')}</h3>
+              <p className="home-about-timeline-meta">{t('home.about.validation.meta')}</p>
+              <ul className="home-about-name-grid home-about-timeline-body">
+                {HANDBOOK_VALIDATION_TEAM.map((name) => (
+                  <li key={name}>{name}</li>
+                ))}
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+
 
       {/* Contact Information Section */}
       <section className="contact-section">
@@ -186,7 +161,8 @@ const Home = () => {
             <p style={{ margin: '0.25rem 0' }}>
               <a
                 href="tel:3004"
-                className="contact-link-clickable"
+                className="contact-link-clickable notranslate"
+                translate="no"
                 style={{ display: 'inline-block' }}
               >
                 {t('home.contact.callCenter.tollFree')}

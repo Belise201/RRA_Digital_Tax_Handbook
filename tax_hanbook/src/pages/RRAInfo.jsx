@@ -1,4 +1,5 @@
-import { Phone, Mail, MapPin, Globe, Users, Facebook, Instagram, Youtube } from 'lucide-react';
+import { Facebook, Instagram, Youtube } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import TikTokIcon from '../components/TikTokIcon';
 
 const RRAInfo = () => {
@@ -12,17 +13,7 @@ const RRAInfo = () => {
   const PhoneLink = ({ phone, children }) => {
     const telLink = `tel:${formatPhoneForTel(phone)}`;
     return (
-      <a
-        href={telLink}
-        style={{
-          color: '#093e61',
-          textDecoration: 'underline',
-          fontWeight: 500,
-          cursor: 'pointer'
-        }}
-        onMouseEnter={(e) => e.target.style.color = '#5B9BD5'}
-        onMouseLeave={(e) => e.target.style.color = '#093e61'}
-      >
+      <a href={telLink} className="content-link">
         {children || phone}
       </a>
     );
@@ -141,110 +132,105 @@ const RRAInfo = () => {
 
   return (
     <div className="page-container">
-      <div className="professional-header">
-        <div className="professional-header-content">
-          <div className="professional-title-container">
-            <div className="professional-title-icon">
-              <Users size={24} />
-            </div>
-            <div className="professional-title-text">
-              <h1 className="professional-main-title">RRA Contact Details</h1>
-              <div className="professional-title-divider"></div>
-              <p className="professional-title-description">
-                RRA is "Here For You, To Serve" and is available to be contacted in many ways.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="page-content">
-        {/* Contact Information Section */}
-        <section className="content-section">
-          <h2>By telephone:</h2>
-          <ul className="content-list">
-            <li><strong>RRA Call Centre:</strong> <PhoneLink phone="3004">3004</PhoneLink></li>
-            <li><strong>RRA Internatianal Calls:</strong> <PhoneLink phone="+250 (0) 788 185 500">+250 (0) 788 185 500</PhoneLink></li>
-          </ul>
-        </section>
-
-        <section className="content-section">
-          <h2>By email:</h2>
-          <p className="content-paragraph">
-            <a href="https://ecms.rra.gov.rw/home " target="_blank" rel="noopener noreferrer" className="content-link">
-              https://ecms.rra.gov.rw/home?lang=en
-            </a>
+      <div className="page-content page-content--plain-flow">
+        <section
+          className="home-plain-section home-about-handbook"
+          aria-labelledby="rra-contact-channels-heading"
+        >
+          <h2 id="rra-contact-channels-heading">How to contact RRA</h2>
+          <p className="home-about-lede">
+            Toll-free line, ECMS, the Contact Us page, postal address, and official social channels.
           </p>
-        </section>
 
-        <section className="content-section">
-          <h2>On the RRA website 'Contact Us' section at:</h2>
-          <p className="content-paragraph">
-            <a href="https://www.rra.gov.rw/en/contact-us" target="_blank" rel="noopener noreferrer" className="content-link">
-              https://www.rra.gov.rw/en/contact-us
-            </a>
-          </p>
-        </section>
+          <ul className="home-about-timeline">
+            <li className="home-about-timeline-item">
+              <div className="home-about-timeline-inner">
+                <h3 className="home-about-timeline-title">By telephone</h3>
+                <p className="home-about-timeline-meta">Call centre and international</p>
+                <ul className="home-about-meta-list home-about-timeline-body">
+                  <li>
+                    <strong>RRA Call Centre:</strong> <PhoneLink phone="3004">3004</PhoneLink>
+                  </li>
+                  <li>
+                    <strong>RRA International Calls:</strong>{' '}
+                    <PhoneLink phone="+250 (0) 788 185 500">+250 (0) 788 185 500</PhoneLink>
+                  </li>
+                </ul>
+              </div>
+            </li>
 
-        <section className="content-section">
-          <h2>By post:</h2>
-          <div className="address-block">
-            <p className="content-paragraph" style={{ marginBottom: '0.5rem' }}>Rwanda Revenue Authority,</p>
-            <p className="content-paragraph" style={{ marginBottom: '0.5rem' }}>Silver Back Mall</p>
-            <p className="content-paragraph" style={{ marginBottom: '0.5rem' }}>Kicukiro - Sonatube</p>
-            <p className="content-paragraph" style={{ marginBottom: '0.5rem' }}>Kigali</p>
-            <p className="content-paragraph" style={{ marginBottom: '0.5rem' }}>Rwanda</p>
-            <p className="content-paragraph" style={{ marginBottom: '0' }}>P. O. Box 3987</p>
-          </div>
-        </section>
-
-        {/* Social Media Section */}
-        <section className="content-section">
-          <h2>By social media:</h2>
-          <ul className="social-links" style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-            {socialMediaLinks.map((social, index) => {
-              const IconComponent = social.icon;
-              return (
-                <li key={index} style={{ display: 'flex', alignItems: 'center', padding: 0 }}>
+            <li className="home-about-timeline-item">
+              <div className="home-about-timeline-inner">
+                <h3 className="home-about-timeline-title">By email</h3>
+                <p className="home-about-timeline-meta">ECMS — online services</p>
+                <p className="home-about-timeline-body home-about-timeline-body--text">
                   <a
-                    href={social.url}
+                    href="https://ecms.rra.gov.rw/home?lang=en"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="content-link"
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.5rem',
-                      textDecoration: 'none',
-                      color: '#093e61',
-                      fontWeight: 500
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.color = '#5B9BD5';
-                      const icon = e.target.querySelector('.social-icon');
-                      if (icon) icon.style.color = '#5B9BD5';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.color = '#093e61';
-                      const icon = e.target.querySelector('.social-icon');
-                      if (icon) icon.style.color = '#093e61';
-                    }}
                   >
-                    <span className="social-icon" style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: '#093e61',
-                      flexShrink: 0,
-                      transition: 'all 0.3s ease'
-                    }}>
-                      <IconComponent size={16} />
-                    </span>
-                    <span className="social-text">{social.username}</span>
+                    https://ecms.rra.gov.rw/home?lang=en
                   </a>
-                </li>
-              );
-            })}
+                </p>
+              </div>
+            </li>
+
+            <li className="home-about-timeline-item">
+              <div className="home-about-timeline-inner">
+                <h3 className="home-about-timeline-title">RRA website — Contact Us</h3>
+                <p className="home-about-timeline-meta">Web enquiries and contact form</p>
+                <p className="home-about-timeline-body home-about-timeline-body--text">
+                  <a
+                    href="https://www.rra.gov.rw/en/contact-us"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="content-link"
+                  >
+                    https://www.rra.gov.rw/en/contact-us
+                  </a>
+                </p>
+              </div>
+            </li>
+
+            <li className="home-about-timeline-item">
+              <div className="home-about-timeline-inner">
+                <h3 className="home-about-timeline-title">By post</h3>
+                <p className="home-about-timeline-meta">Postal address</p>
+                <ul className="home-about-meta-list home-about-timeline-body">
+                  <li>Rwanda Revenue Authority,</li>
+                  <li>Silver Back Mall</li>
+                  <li>Kicukiro - Sonatube</li>
+                  <li>Kigali</li>
+                  <li>Rwanda</li>
+                  <li>P. O. Box 3987</li>
+                </ul>
+              </div>
+            </li>
+
+            <li className="home-about-timeline-item">
+              <div className="home-about-timeline-inner">
+                <h3 className="home-about-timeline-title">By social media</h3>
+                <p className="home-about-timeline-meta">Official channels</p>
+                <div className="home-about-timeline-body">
+                  <ul className="rra-social-links">
+                    {socialMediaLinks.map((social, index) => {
+                      const IconComponent = social.icon;
+                      return (
+                        <li key={index}>
+                          <a href={social.url} target="_blank" rel="noopener noreferrer" className="content-link">
+                            <span className="social-icon">
+                              <IconComponent size={16} />
+                            </span>
+                            <span className="social-text">{social.username}</span>
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </div>
+            </li>
           </ul>
         </section>
 
@@ -262,15 +248,15 @@ const RRAInfo = () => {
           <p className="content-paragraph" style={{ marginTop: '1.5rem' }}>
             In particular, the contact details for the Commissioner for Customs Services Department (CSD) are:
           </p>
-          <div className="address-block" style={{ marginTop: '1rem' }}>
-            <p className="content-paragraph" style={{ marginBottom: '0.5rem' }}>Commissioner for Customs Services Department,</p>
-            <p className="content-paragraph" style={{ marginBottom: '0.5rem' }}>Rwanda Revenue Authority</p>
-            <p className="content-paragraph" style={{ marginBottom: '0.5rem' }}>Doubai Port World (DPW)</p>
-            <p className="content-paragraph" style={{ marginBottom: '0.5rem' }}>Kicukiro/Masaka</p>
-            <p className="content-paragraph" style={{ marginBottom: '0.5rem' }}>Kigali</p>
-            <p className="content-paragraph" style={{ marginBottom: '0.5rem' }}>Rwanda</p>
-            <p className="content-paragraph" style={{ marginBottom: '0' }}>P. O. Box 3987</p>
-          </div>
+          <address className="content-address-lines content-address-lines--spaced">
+            <p className="content-paragraph">Commissioner for Customs Services Department,</p>
+            <p className="content-paragraph">Rwanda Revenue Authority</p>
+            <p className="content-paragraph">Doubai Port World (DPW)</p>
+            <p className="content-paragraph">Kicukiro/Masaka</p>
+            <p className="content-paragraph">Kigali</p>
+            <p className="content-paragraph">Rwanda</p>
+            <p className="content-paragraph">P. O. Box 3987</p>
+          </address>
 
           <h3 style={{ marginTop: '2rem', marginBottom: '1rem', fontSize: '1.25rem' }}>At Domestic Tax Centres:</h3>
           <p className="content-paragraph">

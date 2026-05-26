@@ -74,6 +74,7 @@ public class AdminDTOs {
         private String title;
         private String message;
         private String pagePath;
+        private String recipientEmail;
         private boolean active;
         private String createdBy;
         private LocalDateTime createdAt;
@@ -84,6 +85,8 @@ public class AdminDTOs {
         private String title;
         private String message;
         private String pagePath;
+        /** When set, only this signed-in taxpayer sees the notification in their bell inbox. */
+        private String recipientEmail;
     }
 
     @Data @AllArgsConstructor @NoArgsConstructor

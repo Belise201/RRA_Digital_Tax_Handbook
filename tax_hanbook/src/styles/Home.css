@@ -16,8 +16,14 @@
   border-radius: 0.75rem;
   color: #1e293b;
   padding: 2rem;
-  margin: 0 -0.75rem 2.5rem -0.75rem;
+  margin: 1.75rem -0.75rem 2.5rem -0.75rem;
   border: 1px solid #cbd5e1;
+}
+
+/* Admin view: the 56px padding-top on main.content already provides spacing —
+   reset hero margin-top so the hero doesn't end up double-spaced */
+.admin-viewing .hero-section {
+  margin-top: 0;
 }
 
 .hero-content {
@@ -375,6 +381,195 @@
   font-weight: 500;
 }
 
+/* Plain prose blocks (disclaimer, about) — no card / box */
+.home-plain-section {
+  margin: 0 0 2.25rem;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.home-plain-section h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #093e61;
+  margin: 0 0 1rem;
+  padding: 0 0 0.65rem;
+  border-bottom: 2px solid rgba(9, 62, 97, 0.18);
+}
+
+.home-plain-section h2::after {
+  display: none;
+}
+
+.home-plain-section h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #0c4a6e;
+  margin: 1.35rem 0 0.5rem;
+}
+
+.home-plain-section p {
+  margin: 0 0 0.85rem;
+  color: var(--text-secondary, #475569);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  text-align: left;
+  max-width: 65ch;
+}
+
+.home-plain-section p:last-child {
+  margin-bottom: 0;
+}
+
+/* About handbook — LinkedIn-style vertical timeline */
+.home-plain-section.home-about-handbook > h2 {
+  margin-bottom: 0.5rem;
+}
+
+.home-about-lede {
+  margin: 0 0 0.25rem;
+  max-width: 52ch;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--text-secondary, #64748b);
+}
+
+.home-about-timeline {
+  list-style: none;
+  margin: 1.35rem 0 0;
+  padding: 0 0 0 1.5rem;
+  position: relative;
+}
+
+.home-about-timeline::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 0.35rem;
+  bottom: 0.35rem;
+  width: 2px;
+  background: #e2e8f0;
+  border-radius: 1px;
+}
+
+.home-about-timeline-item {
+  position: relative;
+  margin: 0;
+  padding: 0 0 1.6rem 1.15rem;
+  isolation: isolate;
+}
+
+.home-about-timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.home-about-timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -1.5rem;
+  top: 0.28rem;
+  width: 12px;
+  height: 12px;
+  margin-left: 0;
+  border-radius: 50%;
+  background: #94a3b8;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px #e2e8f0;
+  z-index: 1;
+}
+
+.home-about-timeline-inner {
+  min-width: 0;
+}
+
+.home-about-handbook .home-about-timeline-title {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #0f172a;
+  margin: 0 0 0.2rem;
+  letter-spacing: -0.01em;
+}
+
+.home-about-timeline-meta {
+  margin: 0 0 0.55rem;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: #64748b;
+}
+
+.home-about-timeline-body {
+  margin: 0;
+}
+
+.home-about-timeline-body--text {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--text-secondary, #475569);
+  max-width: 62ch;
+}
+
+.home-about-timeline-body.home-about-meta-list {
+  margin-top: 0.15rem;
+}
+
+.home-about-meta-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.home-about-meta-list li {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text-secondary, #475569);
+}
+
+.home-about-name-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.45rem 1.25rem;
+}
+
+.home-about-name-grid li {
+  margin: 0;
+  padding: 0.15rem 0;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--text-secondary, #475569);
+}
+
+@media (min-width: 480px) {
+  .home-about-name-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-about-name-grid--sm {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 720px) {
+  .home-about-name-grid:not(.home-about-name-grid--sm) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .home-about-name-grid--sm {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 /* Contact Section */
 .contact-section {
   margin: 1rem 0;
@@ -530,8 +725,12 @@
   }
 
   .hero-section {
-    margin: 0 -0.5rem 2rem -0.5rem;
+    margin: 1.75rem -0.5rem 2rem -0.5rem;
     padding: 1.25rem 0.5rem;
+  }
+
+  .admin-viewing .hero-section {
+    margin-top: 0;
   }
 
   .hero-title {

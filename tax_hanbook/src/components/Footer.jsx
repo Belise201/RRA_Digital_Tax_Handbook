@@ -21,7 +21,7 @@ const Footer = () => {
   );
 
   return (
-    <footer className="global-footer">
+    <footer className="global-footer notranslate" translate="no">
       <div className="footer-content">
         <div className="footer-section">
           <h4 className="footer-title">{t('footer.socialMedia')}</h4>

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const API = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
+const API = import.meta.env.VITE_API_ROOT_URL || import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080';
 const STORAGE_KEY = 'rra_read_notif_ids';
 
 const getReadIds = () => {
@@ -12,23 +12,28 @@ const saveReadIds = (ids) => {
 };
 
 /**
- * Polls for active content-update notifications.
- * Only call this for logged-in taxpayers (pass enabled=false for admins / guests).
+ * Polls inbox notifications for logged-in taxpayers (Bearer JWT).
+ * Includes handbook broadcasts plus any row targeted to this user's email.
  */
-export const useUserNotifications = (enabled) => {
+export const useUserNotifications = (enabled, token) => {
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount]     = useState(0);
 
   const refresh = useCallback(async () => {
-    if (!enabled) return;
+    if (!enabled || !token) {
+      setNotifications([]);
+      setUnreadCount(0);
+      return;
+    }
     try {
-      const r = await fetch(`${API}/api/notifications/all-active`);
+      const r = await fetch(`${API}/api/notifications/inbox`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       if (!r.ok) {
-        console.warn('[Notifications] fetch failed:', r.status, r.statusText);
+        console.warn('[Notifications] inbox fetch failed:', r.status, r.statusText);
         return;
       }
       const all = await r.json();
-      // Show ALL active notifications (global + page-specific), newest first
       const sorted = [...all].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setNotifications(sorted);
       const readIds = getReadIds();
@@ -36,14 +41,14 @@ export const useUserNotifications = (enabled) => {
     } catch (err) {
       console.warn('[Notifications] network error:', err.message);
     }
-  }, [enabled]);
+  }, [enabled, token]);
 
   useEffect(() => {
     refresh();
-    if (!enabled) return;
-    const t = setInterval(refresh, 30000); // re-check every 30 s
+    if (!enabled || !token) return;
+    const t = setInterval(refresh, 30000);
     return () => clearInterval(t);
-  }, [refresh, enabled]);
+  }, [refresh, enabled, token]);
 
   const markRead = useCallback((id) => {
     const ids = getReadIds();

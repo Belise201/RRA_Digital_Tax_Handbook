@@ -19,6 +19,7 @@ const OnlineRequests = () => {
 
       <div className="page-content">
         <section className="content-section">
+          <h2>Available Online Services</h2>
           <p className="content-paragraph">
             Taxpayer can access various services through the online requests menu in the e-tax system. These include:
           </p>

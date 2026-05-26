@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
-import { useState, Fragment } from 'react';
-import { useLanguage } from './hooks/useLanguage';
+import { useState, lazy, Suspense, useEffect } from 'react';
 import { LanguageProvider } from './contexts/LanguageContextProvider';
 import { AuthProvider } from './contexts/AuthContext';
 import { useAuth } from './hooks/useAuth';
@@ -8,133 +7,147 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import AnalyticsTracker from './components/AnalyticsTracker';
-import NotificationBanner from './components/NotificationBanner';
 import AdminBackBar from './components/AdminBackBar';
 import PageWrapper from './components/PageWrapper';
 import AdminRoute from './components/AdminRoute';
-import AdminDashboard from './pages/AdminDashboard';
-import Home from './pages/Home';
-import Introduction from './pages/Introduction';
-import RRAInfo from './pages/RRAInfo';
-import Definitions from './pages/Definitions';
-import Acronyms from './pages/Acronyms';
-import LawsRulings from './pages/LawsRulings';
-import Obligations from './pages/Obligations';
-import Audits from './pages/Audits';
-import Refunds from './pages/Refunds';
-import Appeals from './pages/Appeals';
-import DebtManagement from './pages/DebtManagement';
-import Certificates from './pages/Certificates';
-import VATReward from './pages/VATReward';
-import CommunicateRRA from './pages/CommunicateRRA';
-import OnlineRequests from './pages/OnlineRequests';
-import MotorVehicle from './pages/MotorVehicle';
-import MyRRA from './pages/MyRRA';
-import Registration from './pages/Registration';
-import DomesticTaxes from './pages/DomesticTaxes';
-import VAT from './pages/VAT';
-import ExciseExplanation from './pages/ExciseExplanation';
-import ExciseDeclaration from './pages/ExciseDeclaration';
-import WithholdingTaxes from './pages/WithholdingTaxes';
-import WithholdingTaxesExplanation from './pages/WithholdingTaxesExplanation';
-import WithholdingTaxesDeclaration from './pages/WithholdingTaxesDeclaration';
-import GamingTaxExplanation from './pages/GamingTaxExplanation';
-import GamingTaxDeclaration from './pages/GamingTaxDeclaration';
-import GamingTaxPenalties from './pages/GamingTaxPenalties';
-import RegistrationExplanation from './pages/RegistrationExplanation';
-import RegistrationGuide from './pages/RegistrationGuide';
-import DomesticDeclaration from './pages/DomesticDeclaration';
-import DomesticPenalties from './pages/DomesticPenalties';
-import MiningRoyaltyExplanation from './pages/MiningRoyaltyExplanation';
-import MiningRoyaltyDeclaration from './pages/MiningRoyaltyDeclaration';
-import CapitalGainsTaxExplanation from './pages/CapitalGainsTaxExplanation';
-import CapitalGainsTaxDeclaration from './pages/CapitalGainsTaxDeclaration';
-import DecentralisedPenalties from './pages/DecentralisedPenalties';
-import DecentralisedEntities from './pages/DecentralisedEntities';
-import ImmovablePropertyTax from './pages/ImmovablePropertyTax';
-import TradingLicenseTax from './pages/TradingLicenseTax';
-import RentalIncomeTax from './pages/RentalIncomeTax';
-import FeeLeviedDecentralisedEntities from './pages/FeeLeviedDecentralisedEntities';
-import TaxCentres from './pages/TaxCentres';
-import RegisteringDecentralisedEntities from './pages/RegisteringDecentralisedEntities';
-import DeclaringDecentralisedEntitiesLgt from './pages/DeclaringDecentralisedEntitiesLgt';
-import RoadMaintenanceExplanation from './pages/RoadMaintenanceExplanation';
-import RoadMaintenanceDeclaration from './pages/RoadMaintenanceDeclaration';
-import TourismTaxExplanation from './pages/TourismTaxExplanation';
-import TourismTaxDeclaration from './pages/TourismTaxDeclaration';
-import CustomsExplanation from './pages/CustomsExplanation';
-import CustomDuties from './pages/CustomDuties';
-import ClearingAgents from './pages/ClearingAgents';
-import BorderPortsAndDryPorts from './pages/BorderPortsAndDryPorts';
-import DeclaringImportsAndExport from './pages/DeclaringImportsAndExport';
-import FacilitationSchema from './pages/FacilitationSchema';
-import ImportingMotoVehicle from './pages/ImportingMotoVehicle';
-import CustomsPenalties from './pages/CustomsPenalties';
-import MethodsOfPayingTaxes from './pages/MethodsOfPayingTaxes';
-import AcknowledgementReceipt from './pages/AcknowledgementReceipt';
-import PayingUsingBankingAndEpayment from './pages/PayingUsingBankingAndEpayment';
-import EPaymentMobileMoney from './pages/EPaymentMobileMoney';
-import EPaymentMobicash from './pages/EPaymentMobicash';
-import PayingAtBank from './pages/PayingAtBank';
-import PayingTaxes from './pages/PayingTaxes';
-import RegistrationSummary from './pages/RegistrationSummary';
-import DomesticETax from './pages/DomesticETax';
-import PitCitSum from './pages/PitCitSum';
-import PayeSum from './pages/PayeSum';
-import VatSum from './pages/VatSum';
-import EisSum from './pages/EisSum';
-import ExciseSum from './pages/ExciseSum';
-import WhtSum from './pages/WhtSum';
-import CustomsSum from './pages/CustomsSum';
-import PayingSum from './pages/PayingSum';
-import Deregistration from './pages/Deregistration';
-import SearchResults from './pages/SearchResults';
+import GoogleTranslateSync from './components/GoogleTranslateSync';
 import './App.css';
 import './styles/LandingPages.css';
 
-import Foreword from './pages/Foreword';
-import VDS from './pages/VDS';
-import ExchangeInfo from './pages/ExchangeInfo';
-import IncomeTaxExplanation from './pages/IncomeTaxExplanation';
-import RealRegimeDetails from './pages/RealRegimeDetails';
-import MDeclarationFlatLumpIQP from './pages/MDeclarationFlatLumpIQP';
-import MDeclarationMotorVehicle from './pages/MDeclarationMotorVehicle';
-import DeclaringFlatTaxLumpSumIQP from './pages/DeclaringFlatTaxLumpSumIQP';
-import DeclaringMotorVehicleIncomeTax from './pages/DeclaringMotorVehicleIncomeTax';
-import DeclaringFlatTaxETax from './pages/DeclaringFlatTaxE-Tax';
-import DeclaringLumpSumETax from './pages/DeclaringLumpSumE-Tax';
-import DeclaringRealRegimeETax from './pages/DeclaringRealRegimeE-Tax';
-import DeclaringIQPIncomeTax from './pages/DeclaringIQPIncomeTax';
-import InstalmentPayments from './pages/InstalmentPayments';
-import PayeExplanation from './pages/PayeExplanation';
-import PayeDeclaration from './pages/PayeDeclaration';
-import VatExplanation from './pages/VatExplanation';
-import VatDeclaration from './pages/VatDeclaration';
-import ElectronicInvoicingSystemExplanation from './pages/ElectronicInvoicingSystemExplanation';
-import EisEbmsPenalties from './pages/EisEbmsPenalties';
-import IntroductionLanding from './pages/IntroductionLanding';
-import RegistrationLanding from './pages/RegistrationLanding';
-import VatLanding from './pages/VatLanding';
-import OtherTaxesLanding from './pages/OtherTaxesLanding';
-import OtherTaxesEntities from './pages/OtherTaxesEntities';
-import PitCitLanding from './pages/PitCitLanding';
-import OtherTaxSubmenuLanding from './pages/OtherTaxSubmenuLanding';
-import VatUnified from './pages/VatUnified';
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
+const Home = lazy(() => import('./pages/Home'));
+const Introduction = lazy(() => import('./pages/Introduction'));
+const RRAInfo = lazy(() => import('./pages/RRAInfo'));
+const Definitions = lazy(() => import('./pages/Definitions'));
+const Acronyms = lazy(() => import('./pages/Acronyms'));
+const LawsRulings = lazy(() => import('./pages/LawsRulings'));
+const Obligations = lazy(() => import('./pages/Obligations'));
+const Audits = lazy(() => import('./pages/Audits'));
+const Refunds = lazy(() => import('./pages/Refunds'));
+const Appeals = lazy(() => import('./pages/Appeals'));
+const DebtManagement = lazy(() => import('./pages/DebtManagement'));
+const Certificates = lazy(() => import('./pages/Certificates'));
+const VATReward = lazy(() => import('./pages/VATReward'));
+const CommunicateRRA = lazy(() => import('./pages/CommunicateRRA'));
+const OnlineRequests = lazy(() => import('./pages/OnlineRequests'));
+const MotorVehicle = lazy(() => import('./pages/MotorVehicle'));
+const MyRRA = lazy(() => import('./pages/MyRRA'));
+const Registration = lazy(() => import('./pages/Registration'));
+const DomesticTaxes = lazy(() => import('./pages/DomesticTaxes'));
+const VAT = lazy(() => import('./pages/VAT'));
+const ExciseExplanation = lazy(() => import('./pages/ExciseExplanation'));
+const ExciseDeclaration = lazy(() => import('./pages/ExciseDeclaration'));
+const WithholdingTaxes = lazy(() => import('./pages/WithholdingTaxes'));
+const WithholdingTaxesExplanation = lazy(() => import('./pages/WithholdingTaxesExplanation'));
+const WithholdingTaxesDeclaration = lazy(() => import('./pages/WithholdingTaxesDeclaration'));
+const GamingTaxExplanation = lazy(() => import('./pages/GamingTaxExplanation'));
+const GamingTaxDeclaration = lazy(() => import('./pages/GamingTaxDeclaration'));
+const GamingTaxPenalties = lazy(() => import('./pages/GamingTaxPenalties'));
+const RegistrationExplanation = lazy(() => import('./pages/RegistrationExplanation'));
+const RegistrationGuide = lazy(() => import('./pages/RegistrationGuide'));
+const DomesticDeclaration = lazy(() => import('./pages/DomesticDeclaration'));
+const DomesticPenalties = lazy(() => import('./pages/DomesticPenalties'));
+const MiningRoyaltyExplanation = lazy(() => import('./pages/MiningRoyaltyExplanation'));
+const MiningRoyaltyDeclaration = lazy(() => import('./pages/MiningRoyaltyDeclaration'));
+const CapitalGainsTaxExplanation = lazy(() => import('./pages/CapitalGainsTaxExplanation'));
+const CapitalGainsTaxDeclaration = lazy(() => import('./pages/CapitalGainsTaxDeclaration'));
+const DecentralisedPenalties = lazy(() => import('./pages/DecentralisedPenalties'));
+const DecentralisedEntities = lazy(() => import('./pages/DecentralisedEntities'));
+const ImmovablePropertyTax = lazy(() => import('./pages/ImmovablePropertyTax'));
+const TradingLicenseTax = lazy(() => import('./pages/TradingLicenseTax'));
+const RentalIncomeTax = lazy(() => import('./pages/RentalIncomeTax'));
+const FeeLeviedDecentralisedEntities = lazy(() => import('./pages/FeeLeviedDecentralisedEntities'));
+const TaxCentres = lazy(() => import('./pages/TaxCentres'));
+const RegisteringDecentralisedEntities = lazy(() => import('./pages/RegisteringDecentralisedEntities'));
+const DeclaringDecentralisedEntitiesLgt = lazy(() => import('./pages/DeclaringDecentralisedEntitiesLgt'));
+const RoadMaintenanceExplanation = lazy(() => import('./pages/RoadMaintenanceExplanation'));
+const RoadMaintenanceDeclaration = lazy(() => import('./pages/RoadMaintenanceDeclaration'));
+const TourismTaxExplanation = lazy(() => import('./pages/TourismTaxExplanation'));
+const TourismTaxDeclaration = lazy(() => import('./pages/TourismTaxDeclaration'));
+const CustomsExplanation = lazy(() => import('./pages/CustomsExplanation'));
+const CustomDuties = lazy(() => import('./pages/CustomDuties'));
+const ClearingAgents = lazy(() => import('./pages/ClearingAgents'));
+const BorderPortsAndDryPorts = lazy(() => import('./pages/BorderPortsAndDryPorts'));
+const DeclaringImportsAndExport = lazy(() => import('./pages/DeclaringImportsAndExport'));
+const FacilitationSchema = lazy(() => import('./pages/FacilitationSchema'));
+const ImportingMotoVehicle = lazy(() => import('./pages/ImportingMotoVehicle'));
+const CustomsPenalties = lazy(() => import('./pages/CustomsPenalties'));
+const MethodsOfPayingTaxes = lazy(() => import('./pages/MethodsOfPayingTaxes'));
+const AcknowledgementReceipt = lazy(() => import('./pages/AcknowledgementReceipt'));
+const PayingUsingBankingAndEpayment = lazy(() => import('./pages/PayingUsingBankingAndEpayment'));
+const EPaymentMobileMoney = lazy(() => import('./pages/EPaymentMobileMoney'));
+const EPaymentMobicash = lazy(() => import('./pages/EPaymentMobicash'));
+const PayingAtBank = lazy(() => import('./pages/PayingAtBank'));
+const PayingTaxes = lazy(() => import('./pages/PayingTaxes'));
+const RegistrationSummary = lazy(() => import('./pages/RegistrationSummary'));
+const DomesticETax = lazy(() => import('./pages/DomesticETax'));
+const PitCitSum = lazy(() => import('./pages/PitCitSum'));
+const PayeSum = lazy(() => import('./pages/PayeSum'));
+const VatSum = lazy(() => import('./pages/VatSum'));
+const EisSum = lazy(() => import('./pages/EisSum'));
+const ExciseSum = lazy(() => import('./pages/ExciseSum'));
+const WhtSum = lazy(() => import('./pages/WhtSum'));
+const CustomsSum = lazy(() => import('./pages/CustomsSum'));
+const PayingSum = lazy(() => import('./pages/PayingSum'));
+const Deregistration = lazy(() => import('./pages/Deregistration'));
+const SearchResults = lazy(() => import('./pages/SearchResults'));
+const Faq = lazy(() => import('./pages/Faq'));
+const UserProfile = lazy(() => import('./pages/UserProfile'));
+const VATCalculatorPage = lazy(() => import('./pages/VATCalculatorPage'));
+const IncomeTaxCalculatorPage = lazy(() => import('./pages/IncomeTaxCalculatorPage'));
+const PAYECalculatorPage = lazy(() => import('./pages/PAYECalculatorPage'));
+const WithholdingTaxCalculatorPage = lazy(() => import('./pages/WithholdingTaxCalculatorPage'));
+const Foreword = lazy(() => import('./pages/Foreword'));
+const VDS = lazy(() => import('./pages/VDS'));
+const ExchangeInfo = lazy(() => import('./pages/ExchangeInfo'));
+const IncomeTaxExplanation = lazy(() => import('./pages/IncomeTaxExplanation'));
+const RealRegimeDetails = lazy(() => import('./pages/RealRegimeDetails'));
+const MDeclarationFlatLumpIQP = lazy(() => import('./pages/MDeclarationFlatLumpIQP'));
+const MDeclarationMotorVehicle = lazy(() => import('./pages/MDeclarationMotorVehicle'));
+const DeclaringFlatTaxLumpSumIQP = lazy(() => import('./pages/DeclaringFlatTaxLumpSumIQP'));
+const DeclaringMotorVehicleIncomeTax = lazy(() => import('./pages/DeclaringMotorVehicleIncomeTax'));
+const DeclaringFlatTaxETax = lazy(() => import('./pages/DeclaringFlatTaxE-Tax'));
+const DeclaringLumpSumETax = lazy(() => import('./pages/DeclaringLumpSumE-Tax'));
+const DeclaringRealRegimeETax = lazy(() => import('./pages/DeclaringRealRegimeE-Tax'));
+const DeclaringIQPIncomeTax = lazy(() => import('./pages/DeclaringIQPIncomeTax'));
+const InstalmentPayments = lazy(() => import('./pages/InstalmentPayments'));
+const PayeExplanation = lazy(() => import('./pages/PayeExplanation'));
+const PayeDeclaration = lazy(() => import('./pages/PayeDeclaration'));
+const VatExplanation = lazy(() => import('./pages/VatExplanation'));
+const VatDeclaration = lazy(() => import('./pages/VatDeclaration'));
+const ElectronicInvoicingSystemExplanation = lazy(() => import('./pages/ElectronicInvoicingSystemExplanation'));
+const EisEbmsPenalties = lazy(() => import('./pages/EisEbmsPenalties'));
+const IntroductionLanding = lazy(() => import('./pages/IntroductionLanding'));
+const RegistrationLanding = lazy(() => import('./pages/RegistrationLanding'));
+const VatLanding = lazy(() => import('./pages/VatLanding'));
+const OtherTaxesLanding = lazy(() => import('./pages/OtherTaxesLanding'));
+const OtherTaxesEntities = lazy(() => import('./pages/OtherTaxesEntities'));
+const PitCitLanding = lazy(() => import('./pages/PitCitLanding'));
+const OtherTaxSubmenuLanding = lazy(() => import('./pages/OtherTaxSubmenuLanding'));
+const VatUnified = lazy(() => import('./pages/VatUnified'));
 
-// Layout wrapper for all handbook pages (Header + Footer + NotificationBanner)
-// When an admin is browsing, an "Admin Mode" bar is pinned above the header
-const HandbookLayout = ({ searchQuery, setSearchQuery }) => {
+function RouteLoading() {
+  return (
+    <div className="route-loading" role="status" aria-live="polite" aria-label="Loading page">
+      <div className="route-loading-spinner" />
+    </div>
+  );
+}
+
+// Layout wrapper for all handbook pages (Header + Footer)
+// contentKey forces only the <main> to remount when switching back to English,
+// giving fresh DOM without GT artifacts — Header/Footer stay mounted.
+const HandbookLayout = ({ searchQuery, setSearchQuery, contentKey }) => {
   const { user, isAdmin } = useAuth();
   const adminBrowsing = user && isAdmin();
   return (
     <div className={`app${adminBrowsing ? ' admin-viewing' : ''}`}>
       {adminBrowsing && <AdminBackBar />}
       <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-      <NotificationBanner />
       <div className="main-container">
-        <main className="content">
+        <main className="content" key={contentKey}>
           <PageWrapper>
-            <Outlet />
+            <Outlet context={{ setSearchQuery }} />
           </PageWrapper>
         </main>
       </div>
@@ -143,21 +156,10 @@ const HandbookLayout = ({ searchQuery, setSearchQuery }) => {
   );
 };
 
-/**
- * Inner component — must live inside <LanguageProvider> and <Router> so it
- * can access both the language context (for remountKey) and router context.
- *
- * When the user switches back to English, LanguageContextProvider increments
- * remountKey. Passing that as the key to a Fragment forces React to unmount
- * and remount the entire Routes tree, which discards every Google Translate
- * DOM modification and renders clean English — with zero page reload.
- */
-function AppRoutes({ searchQuery, setSearchQuery }) {
-  const { remountKey } = useLanguage();
-
+function AppRoutes({ searchQuery, setSearchQuery, contentKey }) {
   return (
-    <Fragment key={remountKey}>
-      <Routes>
+    <Suspense fallback={<RouteLoading />}>
+        <Routes>
             {/* Admin route — full-page, no Header/Footer */}
             <Route
               path="/admin"
@@ -169,7 +171,7 @@ function AppRoutes({ searchQuery, setSearchQuery }) {
             />
 
             {/* All handbook routes — wrapped in HandbookLayout */}
-            <Route element={<HandbookLayout searchQuery={searchQuery} setSearchQuery={setSearchQuery} />}>
+            <Route element={<HandbookLayout searchQuery={searchQuery} setSearchQuery={setSearchQuery} contentKey={contentKey} />}>
 
                 <Route path="/" element={<Home />} />
                 <Route path="/introduction" element={<IntroductionLanding />} />
@@ -270,6 +272,13 @@ function AppRoutes({ searchQuery, setSearchQuery }) {
                 <Route path="/paying-sum" element={<PayingSum />} />
                 <Route path="/deregistration" element={<Deregistration />} />
                 <Route path="/search" element={<SearchResults searchQuery={searchQuery} />} />
+                <Route path="/faq" element={<Faq />} />
+                <Route path="/profile" element={<UserProfile />} />
+
+                <Route path="/calculator/vat" element={<VATCalculatorPage />} />
+                <Route path="/calculator/income-tax" element={<IncomeTaxCalculatorPage />} />
+                <Route path="/calculator/paye" element={<PAYECalculatorPage />} />
+                <Route path="/calculator/withholding-tax" element={<WithholdingTaxCalculatorPage />} />
                 <Route path="/other-taxes-entities" element={<OtherTaxesEntities />} />
                 <Route path="/pit-cit" element={<PitCitLanding />} />
                 <Route path="/other-taxes" element={<OtherTaxesLanding />} />
@@ -278,12 +287,22 @@ function AppRoutes({ searchQuery, setSearchQuery }) {
                 <Route path="/vat-unified" element={<VatUnified />} />
             </Route>
           </Routes>
-    </Fragment>
+    </Suspense>
   );
 }
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [contentKey, setContentKey] = useState(0);
+
+  // Listen for the "restore to English" signal from LanguageContextProvider.
+  // Incrementing contentKey remounts only <main> — Header/Footer stay mounted —
+  // replacing any GT-modified DOM with clean React-rendered DOM.
+  useEffect(() => {
+    const handler = () => setContentKey((k) => k + 1);
+    window.addEventListener('rra-restore-english', handler);
+    return () => window.removeEventListener('rra-restore-english', handler);
+  }, []);
 
   return (
     <AuthProvider>
@@ -296,7 +315,8 @@ function App() {
         >
           <ScrollToTop />
           <AnalyticsTracker />
-          <AppRoutes searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+          <GoogleTranslateSync />
+          <AppRoutes searchQuery={searchQuery} setSearchQuery={setSearchQuery} contentKey={contentKey} />
         </Router>
       </LanguageProvider>
     </AuthProvider>

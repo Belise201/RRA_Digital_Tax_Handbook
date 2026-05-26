@@ -42,6 +42,19 @@ export const rw = {
     wasChanged: "yahindutse"
   },
 
+  faqPage: {
+    title: "Ibibazo Bikunze Kubazwa",
+    intro: "Kanda ku kibazo kugirango ubone igisubizo. Koresha utuboko tw'ibiganza hasi kuvuga niba byagufashije. Urupapuro rwa Registration, VAT, PAYE n'ibindi birimo uburyo busobanuye bwo mu menyu ya FAQ.",
+    empty: "Nta bibazo by'abaturage byamenyekanye biri hano ubu.",
+    topicHeading: "Ibibazo n'ibisubizo",
+    topicBadge: "Q&A",
+    uncategorized: "Rusange",
+    helpful: "Byagufashije",
+    notHelpful: "Ntibyagufashije",
+    helpfulVote: "Tanga akamaro ko kigisubizo cyagufashije",
+    notHelpfulVote: "Tanga akamaro ko kigisubizo nticyagufashije",
+  },
+
   // Navigation
   navigation: {
     home: "Ahabanza",
@@ -65,9 +78,9 @@ export const rw = {
   // Home Page
   home: {
     hero: {
-      badge: "Igitabo cy'Umusoro cya RRA 2025 — Giteguye",
+      badge: "Igitabo cy'Umusoro cya RRA 2026 — Giteguye",
       title: "Igitabo cy'Umusoro cya RRA",
-      subtitle: "Umuyoboro wawe wuzuye w'uburyo bwo kwishyura imisoro mu Rwanda. Shaka ibintu byose ukeneye kumenya ku misoro, kwiyandikisha, gutanga itangazo, no kwishyura mu gice kimwe. Cyavuguruwe n'amategeko mashya y'imisoro n'uburyo bwo gukora bwa 2025.",
+      subtitle: "Umuyoboro wawe wuzuye w'uburyo bwo kwishyura imisoro mu Rwanda. Shaka ibintu byose ukeneye kumenya ku misoro, kwiyandikisha, gutanga itangazo, no kwishyura mu gice kimwe. Cyavuguruwe n'amategeko mashya y'imisoro n'uburyo bwo gukora bwa 2026.",
       getStarted: "Tangira",
       callCenter: "Hamagara 3004",
       aboutRRA: "Ibyerekeye RRA"
@@ -221,8 +234,8 @@ export const rw = {
     notice: {
       title: "Itangazo Rikomeye",
       content: "Iyi makuru agenewe gusa gutunga amakuru abagenerwabikorwa bacu kandi irashobora guhinduka igihe amategeko y'imisoro n'amabwiriza agenga imiyoborere y'imisoro bihinduwe. Amakuru muri iki gitabo avuguruwe mu gice kiri kuri interineti, igihe bibaye ngombwa.",
-      copyright: "© Ikigo cy'Imisoro cy'u Rwanda 2025",
-      published: "Yasohowe bwa mbere 2018. Yasohowe bwa kabiri 2025."
+      copyright: "© Ikigo cy'Imisoro cy'u Rwanda 2026",
+      published: "Yasohowe bwa mbere 2018. Yasohowe bwa kabiri 2026."
     },
     contact: {
       title: "Amakuru yo Gutumanahana",
@@ -240,7 +253,39 @@ export const rw = {
         days: "Kuwa Mbere – Kuwa Gatanu",
         time: "7:30 – 17:00"
       }
-    }
+    },
+    disclaimer: {
+      heading: "Icyitonderwa",
+      p1: "Amakuru agaragara hano afasha kuyobora abafatanyabikorwa bacu kandi ashobora guhinduka iyo amategeko y'imisoro cyangwa amategeko agenga ubutegetsi bw'imisoro yahindutse.",
+      p2: "Amakuru ari muri uru rwandiko agezwa kuri verisiyo ya interineti iyo bibaye ngombwa.",
+    },
+    about: {
+      heading: "Ibyerekeye Iki Gitabo",
+      lede: "Amakuru yerekeye isoherezwa ry'iyi nyandiko n'amazina y'abagiraneza.",
+      copyright: {
+        title: "Uburenganzira",
+        meta: "Rwanda Revenue Authority · Igitabo cy'amategeko · 2018–2026",
+        line1: "© Rwanda Revenue Authority 2026",
+        line2: "Ibwa mbere yashyizwe ahagaragara 2018. Uburenganzira bwose bugumye.",
+        line3: "Ubwa kabiri yashyizwe ahagaragara 2026. Uburenganzira bwose bugumye.",
+      },
+      principalAuthor: {
+        title: "Umwanditsi Mukuru",
+        meta: "Politiki y'imisoro · Uyoboye Imyandikire",
+      },
+      coAuthor: {
+        title: "Umwanditsi Wungirije (igice cya LGT)",
+        meta: "Imisoro y'inzego z'ibanze",
+      },
+      reviewedBy: {
+        title: "Bavuguruye kandi Bagenzuye",
+        meta: "Abagiranye umusanzu 5",
+      },
+      validation: {
+        title: "Itsinda Ry'ingenzi ryo Gusuzuma",
+        meta: "Inzobere 15 · Isuzuma ry'Ubuziranenge",
+      },
+    },
   },
 
   // Common
@@ -324,7 +369,7 @@ export const rw = {
       shortDocuments: "Inyandiko Ngufi",
       tollFree: "Nimero Itarishyurwa (mu Rwanda)",
       international: "Mu Mahanga",
-      copyright: "© Ikigo cy'Imisoro cy'u Rwanda 2025\nCyasohowe bwa mbere 2018. Uburenganzira bwose burabitswe.\nCyasohowe bwa kabiri 2025. Uburenganzira bwose burabitswe."
+      copyright: "© Ikigo cy'Imisoro cy'u Rwanda 2026\nCyasohowe bwa mbere 2018. Uburenganzira bwose burabitswe.\nCyasohowe bwa kabiri 2026. Uburenganzira bwose burabitswe."
     }
   },
 
@@ -335,7 +380,7 @@ export const rw = {
     localCalls: "Hamagara mu Rwanda",
     internationalCalls: "Hamagara mu Mahanga",
     sendLetter: "Tuture Ibaruwa",
-    copyright: "© Ikigo cy'Imisoro cy'u Rwanda 2025"
+    copyright: "© Ikigo cy'Imisoro cy'u Rwanda 2026"
   },
 
   // Auth modals
@@ -377,7 +422,8 @@ export const rw = {
     },
     userMenu: {
       currentlyIn: "Uri muri",
-      logout: "Sohoka"
+      logout: "Sohoka",
+      editProfile: "Umwirondoro"
     }
   },
 
@@ -419,6 +465,23 @@ export const rw = {
       title: "Komeza Umenye",
       description: "Amategeko n'amabwiriza y'imisoro irashobora guvuguruwa buri gihe. Ni ngombwa gusuzuma buri gihe urubuga rwa RRA kugira ngo ubone amashyiraho y'amategeko, amabwiriza ya Minisitiri n'ibyemezo kugira ngo ukurikire ibisabwa by'ubu."
     }
+  },
+
+  // FAQ Submission form
+  faqSubmit: {
+    title: "Tanga ikibazo gishya",
+    gateText: "Injira mu konti yawe yo mu gitabo cy'imisoro kugira ngo utange ikibazo. Ibisabirizo bigenzurwa n'umuyobozi mbere yo gubonerwa mu FAQ.",
+    logIn: "Injira",
+    createAccount: "Fungura konti",
+    category: "Icyiciro",
+    question: "Ikibazo cyawe",
+    questionPlaceholder: "Andika ikibazo cyawe cy'imisoro hano...",
+    authorName: "Izina ryawe (ntibisabwa)",
+    authorEmail: "Imeyili (ntibisabwa)",
+    submit: "Tanga ikibazo",
+    successMsg: "Ikibazo cyatanzwe. Umuyobozi azakigenzura mbere yo gutangazwa.",
+    errorSignIn: "Ugomba kuba winjiye kugira ngo utange ikibazo.",
+    errorFailed: "Ntibashije gutanga ikibazo."
   },
 
   // VDS Page

@@ -1,6 +1,6 @@
-# RRA Tax Handbook 2025
+# RRA Tax Handbook 2026
 
-A comprehensive, user-friendly web application providing complete guidance on Rwanda's tax system. This digital handbook contains all the information from the official RRA Tax Handbook 2025, presented in an interactive, searchable format.
+A comprehensive, user-friendly web application providing complete guidance on Rwanda's tax system. This digital handbook contains all the information from the official RRA Tax Handbook 2026, presented in an interactive, searchable format.
 
 ## 🌟 Features
 
@@ -9,7 +9,7 @@ A comprehensive, user-friendly web application providing complete guidance on Rw
 - **Complete Tax Information**: All tax types covered including Income Tax, VAT, PAYE, Customs, and more
 - **Step-by-Step Guides**: Detailed procedures for registration, declaration, and payment
 - **Real Examples**: Practical examples and calculations for better understanding
-- **Updated Information**: Based on the latest 2025 RRA Tax Handbook
+- **Updated Information**: Based on the latest 2026 RRA Tax Handbook
 
 ### 🎨 Modern Design
 
@@ -200,7 +200,7 @@ The application is fully responsive and optimized for:
 
 ## 📄 Content Sources
 
-This application is based on the official **RRA Tax Handbook 2025**, including:
+This application is based on the official **RRA Tax Handbook 2026**, including:
 
 - All tax rates and calculations
 - Official procedures and deadlines
@@ -225,7 +225,7 @@ For technical support or questions about the application:
 
 ## 📄 License
 
-This project is based on the official RRA Tax Handbook 2025. All content is subject to RRA's official guidelines and may be updated as tax legislation changes.
+This project is based on the official RRA Tax Handbook 2026. All content is subject to RRA's official guidelines and may be updated as tax legislation changes.
 
 ## 🔄 Updates
 
@@ -238,5 +238,5 @@ The application will be updated to reflect:
 
 ---
 
-**© Rwanda Revenue Authority 2025**  
-_First published 2018. Second published 2025._
+**© Rwanda Revenue Authority 2026**  
+_First published 2018. Second published 2026._

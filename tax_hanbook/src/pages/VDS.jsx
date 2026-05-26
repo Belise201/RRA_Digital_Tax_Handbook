@@ -1,68 +1,94 @@
 import { Shield } from 'lucide-react';
+import { useLanguage } from '../hooks/useLanguage';
+import { useTranslations } from '../translations';
 
 const VDS = () => {
-    return (
-        <div className="page-container">
-            <div className="professional-header">
-                <div className="professional-header-content">
-                    <div className="professional-title-container">
-                        <div className="professional-title-icon">
-                            <Shield size={24} />
-                        </div>
-                        <div className="professional-title-text">
-                            <h1 className="professional-main-title">Voluntary Disclosure Scheme (VDS)</h1>
-                            <div className="professional-title-divider"></div>
-                        </div>
-                    </div>
-                </div>
+  const { currentLanguage } = useLanguage();
+  const { t } = useTranslations(currentLanguage);
+
+  return (
+    <div className="page-container notranslate" translate="no">
+      <div className="professional-header">
+        <div className="professional-header-content">
+          <div className="professional-title-container">
+            <div className="professional-title-icon">
+              <Shield size={24} />
             </div>
-
-            <div className="page-content">
-                {/* What is VDS Section */}
-                <section className="content-section">
-                    <h2>What is VDS?</h2>
-                    <p className="content-paragraph">
-                        VDS is an opportunity provided by the Law to non-compliant persons to declare and pay their tax with reduced sanctions. VDS facilitates the following:
-                    </p>
-                    <ul className="content-list">
-                        <li>Automatic waiver of penalties and interests for late payment;</li>
-                        <li>Payment effected in 30 days;</li>
-                        <li>A certificate for Voluntary Disclosure</li>
-                    </ul>
-                </section>
-
-                {/* Basis of VDS Section */}
-                <section className="content-section">
-                    <h2>What is the basis of VDS?</h2>
-                    <p className="content-paragraph">
-                        Article 94 of Law No. 020/2023 of 31/03/2023 on Tax Procedures provides that interest and penalties do not apply to taxpayers who voluntarily disclose.
-                    </p>
-                    <p className="content-paragraph">
-                        To implement Article 94, Ministerial Order No. 001/24/03/TC of 08/03/2024 set out the procedures and conditions for accessing voluntary disclosure incentives.
-                    </p>
-                </section>
-
-                {/* Eligibility Section */}
-                <section className="content-section">
-                    <h2>Who is eligible for VDS?</h2>
-                    <ul className="content-list">
-                        <li>A registered taxpayer before being notified of audit;</li>
-                        <li>A taxpayer not registered;</li>
-                        <li>A taxpayer with tax period beyond five years of being audited;</li>
-                        <li>Any other status as may be communicated by the Minister.</li>
-                    </ul>
-                </section>
-
-                {/* Where to Apply Section */}
-                <section className="content-section">
-                    <h2>Where to apply for VDS?</h2>
-                    <p className="content-paragraph">
-                        During VDS period, applications are submitted online via RRA website <a href="https://www.rra.gov.rw" target="_blank" rel="noopener noreferrer" className="content-link">www.rra.gov.rw</a>
-                    </p>
-                </section>
+            <div className="professional-title-text">
+              <h1 className="professional-main-title">{t('vds.title')}</h1>
+              <div className="professional-title-divider"></div>
             </div>
+          </div>
         </div>
-    );
+      </div>
+
+      <div className="page-content">
+        {/* What is VDS */}
+        <section className="content-section">
+          <h2>{t('vds.whatIsVDS.title')}</h2>
+          <p className="content-paragraph">{t('vds.whatIsVDS.description')}</p>
+          <ul className="content-list">
+            {t('vds.whatIsVDS.benefits').map((benefit, i) => (
+              <li key={i}>{benefit}</li>
+            ))}
+          </ul>
+        </section>
+
+        {/* Basis of VDS */}
+        <section className="content-section">
+          <h2>{t('vds.basis.title')}</h2>
+          <p className="content-paragraph">
+            <strong>{t('vds.basis.article94.title')}</strong>
+            {' — '}
+            {t('vds.basis.article94.description')}
+          </p>
+          <p className="content-paragraph">
+            <strong>{t('vds.basis.ministerialOrder.title')}</strong>
+            {' — '}
+            {t('vds.basis.ministerialOrder.description')}
+          </p>
+        </section>
+
+        {/* Eligibility */}
+        <section className="content-section">
+          <h2>{t('vds.eligibility.title')}</h2>
+          <ul className="content-list">
+            {t('vds.eligibility.criteria').map((criterion, i) => (
+              <li key={i}>{criterion}</li>
+            ))}
+          </ul>
+        </section>
+
+        {/* Where to apply */}
+        <section className="content-section">
+          <h2>{t('vds.application.title')}</h2>
+          <p className="content-paragraph">
+            {t('vds.application.description')}{' '}
+            <a
+              href="https://www.rra.gov.rw"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="content-link notranslate"
+              translate="no"
+            >
+              {t('vds.application.website')}
+            </a>
+          </p>
+        </section>
+
+        {/* Notices */}
+        <section className="content-section">
+          <h2>{t('vds.notices.important.title')}</h2>
+          <p className="content-paragraph">{t('vds.notices.important.description')}</p>
+        </section>
+
+        <section className="content-section">
+          <h2>{t('vds.notices.payment.title')}</h2>
+          <p className="content-paragraph">{t('vds.notices.payment.description')}</p>
+        </section>
+      </div>
+    </div>
+  );
 };
 
 export default VDS;
